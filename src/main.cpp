@@ -392,19 +392,18 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_check = document.querySelector('.btn-check');
         btn_check.addEventListener('click', () => {
-            //fetch('/') // replace with actual ESP IP
-                //.then(res => res.json())
-                //.then(data => {
-                    // Update each status line
-                    document.getElementById('net-status').textContent = "aaaa";
-                    document.getElementById('serial-status').textContent = data.serial;
-                    document.getElementById('image-status').textContent = data.image;
-                    document.getElementById('disconnect-status').textContent = data.disconnect;
-                //})
-                //.catch(err => {
-                //    console.error('ESP request failed:', err);
-                //});
+    fetch("/status") // you need to define this endpoint on ESP32
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('net-status').textContent = data.net;
+            document.getElementById('serial-status').textContent = data.serial;
+            document.getElementById('image-status').textContent = data.image;
+            document.getElementById('disconnect-status').textContent = data.disconnect;
         })
+        .catch(err => {
+            console.error('ESP request failed:', err);
+        });
+});
 
 
 
