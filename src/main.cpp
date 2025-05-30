@@ -402,8 +402,8 @@ const char html_page[] PROGMEM = R"rawliteral(
                     document.getElementById('disconnect-status').textContent = data.disconnect;
                 //})
                 //.catch(err => {
-                    console.error('ESP request failed:', err);
-                });
+                //    console.error('ESP request failed:', err);
+                //});
         })
 
 
