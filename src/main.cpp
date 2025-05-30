@@ -308,6 +308,9 @@ const char html_page[] PROGMEM = R"rawliteral(
             display: flex;
             justify-content: center;
         }
+                    .misterious-space {
+            height: 45vh;
+        }
     </style>
 </head>
 
