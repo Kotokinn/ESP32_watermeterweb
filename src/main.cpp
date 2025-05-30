@@ -315,7 +315,7 @@ void setup()
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
               {
-        StaticJsonDocument<512> doc
+        StaticJsonDocument<512> doc; ////aaaa
 
         // Serial.printf(model.getHostname());
 
