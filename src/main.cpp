@@ -211,7 +211,302 @@ bool loadFromFile(ModelData &model) // note
 }
 
 const char html_page[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồng hồ nước</title>
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        .Container {
+            padding: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .BoxInput {
+            flex-grow: 1;
+            width: 500px;
+            height: 30px;
+            display: flex;
+            flex-basis: 600px;
+            justify-content: space-between;
+        }
+
+        .title {
+            color: rgb(14, 14, 207);
+            text-align: center;
+        }
+
+        .ContainerBoxInput .inputItem {
+            width: 50px;
+        }
+
+        .ContainerBoxInput {
+            width: 170px;
+        }
+
+
+        .tab {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        .tab-button {
+            width: 50%;
+            background-color: inherit;
+            border: none;
+            outline: none;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-button:hover {
+            background-color: #ddd;
+        }
+
+        .tab-button.active {
+            border-bottom: 2px solid #007bff;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .tab-form {
+            display: none;
+        }
+
+        .tab-form.form-active {
+            display: block;
+        }
+
+        .btn-check {
+            background-color: #90ee90;
+            /* Light green */
+            color: #1e4620;
+            /* Dark green text for contrast */
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.2s, transform 0.1s;
+            box-shadow: 0 2px 5px rgba(144, 238, 144, 0.5);
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <h2 class="title">Đồng hồ nước</h2>
+        <div class="tab">
+            <button class="tab-button active">Setting config</button>
+            <button class="tab-button">Get status</button>
+        </div>
+
+        <form class="tab-form form-active" action="/data" method="post">
+            <h3>Cấu hình server</h3>
+            <div class="Container">
+                <div class="BoxInput"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname"
+                        type="text" placeholder="vd:example.com"></div>
+                <div class="BoxInput"><span>Path:</span><input required value="%PATH%" name="path" type="text"
+                        placeholder="vd:/sub/nest"></div>
+                <div class="BoxInput"><span>Port:</span><input required value="%PORT%" name="port" type="text"
+                        placeholder="0">
+                </div>
+                <div class="BoxInput">
+                    <span>Chu kì ảnh tải lên:</span>
+                    <div class="ContainerBoxInput">
+                        <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" type="text"
+                            placeholder="0">
+                        <select style="height: 96%;" name="donvichuki" id="">
+                            <option value="86400">Ngày</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="BoxInput"><span>Độ sáng khi chụp:</span><input required value="%DOSANG%" name="dosang"
+                        type="text" placeholder="0"></div>
+                <div class="BoxInput">
+                    <label for="options">Loại đồng hồ:</label>
+                    <select class="option-select" id="options" name="options">
+                        <option value="">Select</option>
+                        <option value="Zenner DN40">Zenner DN40</option>
+                        <option value="George kent DN15">George kent DN15</option>
+                    </select>
+                </div>
+                <div class="BoxInput"><span>Cắt ảnh(Top):</span><input required value="%TOP%" name="cropTop"
+                        type="number" placeholder="0"></div>
+                <div class="BoxInput"><span>Cắt ảnh(Left):</span><input required value="%LEFT%" name="cropLeft"
+                        type="number" placeholder="0"></div>
+                <div class="BoxInput"><span>Cắt ảnh(Right):</span><input required value="%RIGHT%" name="cropRight"
+                        type="number" placeholder="0"></div>
+                <div class="BoxInput"><span>Cắt ảnh(Bottom):</span><input required value="%BOTTOM%" name="cropBottom"
+                        type="number" placeholder="0"></div>
+            </div>
+            <h3>Thông tin khách hàng</h3>
+            <div class="Container">
+                <div class="BoxInput"><span>Tên: </span><input required value="%TENKH%" name="tenKH" type="text"
+                        placeholder="vd: toi la UwU"></div>
+                <div class="BoxInput"><span>Số danh bộ: </span><input required value="%SDB%" name="SDB" type="text"
+                        placeholder="vd: bột tôm"></div>
+                <div class="BoxInput"><span>ID thiết bị: </span><input required value="%IDDEVICE%" name="idDevice"
+                        type="text" placeholder="vd:UwU" disabled></div>
+            </div>
+            <h3>Cấu hình NB IOT</h3>
+            <div class="Container">
+                <div class="BoxInput"><span>Tên PDN: </span><input required value="%PDN%" name="PDN" type="text"
+                        placeholder="vd: toi la UwU"></div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+
+        <form class="tab-form" action="/data">
+            <div class="">
+                <p>đăng kí mạng....done.</p>
+                <p>kết nối serial....done.</p>
+                <p>kiểm tra gửi ảnh....done.</p>
+                <p>bắt đầu ngắt kết nối trong .... giây.</p>
+            </div>
+            <button class="btn-check">Starting check</button>
+
+        </form>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // button tab
+        const buttons = document.querySelectorAll('.tab-button');
+        const forms = document.querySelectorAll('.tab-form');
+
+        buttons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // Remove active state from all buttons
+                buttons.forEach(b => b.classList.remove('active'));
+                // Hide all forms
+                forms.forEach(f => f.classList.remove('form-active'));
+                // Activate clicked button
+                btn.classList.add('active');
+                // Show the corresponding form
+                forms[index].classList.add('form-active');
+            });
+        });
+
+
+
+        const hostname = document.querySelector('input[name="hostname"]');
+        const path = document.querySelector('input[name="path"]');
+        const port = document.querySelector('input[name="port"]');
+        const chuki = document.querySelector('input[name="chuki"]');
+        const donvi_chuki = document.querySelector('input[name="donvichuki"]');
+        const dosang = document.querySelector('input[name="dosang"]');
+
+        const top = document.querySelector('input[name="cropTop"]');
+        const left = document.querySelector('input[name="cropLeft"]');
+        const right = document.querySelector('input[name="cropRight"]');
+        const bottom = document.querySelector('input[name="cropBottom"]');
+        const optionValue = document.querySelector('select[name="options"]');
+
+        const tenKH = document.querySelector('input[name="tenKH"]');
+        const SDB = document.querySelector('input[name="SDB"]');
+        const PDN = document.querySelector('input[name="PDN"]');
+
+
+        function checkValueToDefault(component, defaultValue) {
+            return component.value != null ? component.value : defaultValue;
+        }
+
+
+        function sendData(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Collect form data
+            let formData = {
+                hostname: hostname.value,
+                path: path.value,
+                port: port.value,
+                chuki: chuki.value * donvi_chuki.value,
+                dosang: dosang.value,
+                cropTop: top.value,
+                cropLeft: left.value,
+                cropRight: right.value,
+                cropBott: bottom.value,
+                tenKH: tenKH.value,
+                SDB: SDB.value,
+                PDN: PDN.value
+            };
+
+            fetch("/data", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+        }
+
+        function handleOnChangeSelect() {
+            // console.log("Dropdown changed:", optionValue.value); // Debugging output
+
+            const isDisabled = optionValue.value === "";
+            if (isDisabled) {
+                top.disabled = !isDisabled;
+                left.disabled = !isDisabled;
+                right.disabled = !isDisabled;
+                bottom.disabled = !isDisabled;
+            } else {
+                top.disabled = !isDisabled;
+                left.disabled = !isDisabled;
+                right.disabled = !isDisabled;
+                bottom.disabled = !isDisabled;
+
+                if (optionValue.value === "Zenner DN40") {
+                    top.value = 222;
+                    right.value = 222;
+                    left.value = 222;
+                    bottom.value = 222;
+                } else {
+                    top.value = 33;
+                    right.value = 33;
+                    left.value = 33;
+                    bottom.value = 33;
+                }
+            }
+        }
+
+        // Initialize correct state on load
+        handleOnChangeSelect();
+
+        checkValueToDefault(hostname, "14.224.158.56");
+        checkValueToDefault(path, "some/path");
+        checkValueToDefault(port, "8080");
+        checkValueToDefault(chuki, "2");
+        checkValueToDefault(donvi_chuki, "60");
+        checkValueToDefault(dosang, "6");
+        checkValueToDefault(top, "6");
+        checkValueToDefault(left, "6");
+        checkValueToDefault(right, "6");
+        checkValueToDefault(bottom, "6");
+        checkValueToDefault(tenKH, "6");
+        checkValueToDefault(SDB, "6");
+        checkValueToDefault(PDN, "6");
+
+        // Add event listener (this ensures it works dynamically)
+        optionValue.addEventListener("change", handleOnChangeSelect);
+    });
+</script>
 )rawliteral";
 
 void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName)
