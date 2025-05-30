@@ -305,7 +305,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             cursor: pointer;
             transition: background-color 0.3s, box-shadow 0.2s, transform 0.1s;
             box-shadow: 0 2px 5px rgba(144, 238, 144, 0.5);
-            width: 100%;
+            width: 100vw;
             display: flex;
             justify-content: center;
         }
