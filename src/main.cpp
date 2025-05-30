@@ -595,11 +595,11 @@ void setup()
     server.on("/check", HTTP_GET, [](AsyncWebServerRequest *request)
               {
         String json = R"({
-    "network": "đăng kí mạng....done.",
-    "serial": "kết nối serial....done.",
-    "image": "kiểm tra gửi ảnh....done.",
-    "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
-  })";
+            "network": "đăng kí mạng....done.",
+            "serial": "kết nối serial....done.",
+            "image": "kiểm tra gửi ảnh....done.",
+            "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
+        })";
     Serial.printf("Ok");
         request->send(200, "application/json", json); });
     server.begin();
