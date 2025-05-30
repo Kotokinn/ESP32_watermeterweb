@@ -588,16 +588,16 @@ void setup()
         Serial.println("Received and Saved JSON: " + jsonString);
         request->send(200, "text/html","i was here"); });
 
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
               {
-        String json = R"({
-            "network": "đăng kí mạng....done.",
-            "serial": "kết nối serial....done.",
-            "image": "kiểm tra gửi ảnh....done.",
-            "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
-        })";
-        Serial.printf("Ok");
-        request->send(200, "application/json", json); });
+    StaticJsonDocument<256> doc;
+    doc["net"] = "OK";
+    doc["serial"] = "Connected";
+    doc["image"] = "Sent";
+    doc["disconnect"] = "10s";
+    String response;
+    serializeJson(doc, response);
+    request->send(200, "application/json", response); });
     server.begin();
 }
 
