@@ -541,7 +541,7 @@ void handleStartCheck(AsyncWebServerRequest *request)
     "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
   })";
     Serial.printf("Ok");
-    request->send(200, "application/json", json);
+    
 }
 
 void setup()
