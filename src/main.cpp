@@ -534,8 +534,6 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
 
 void handleStartCheck(AsyncWebServerRequest *request)
 {
-    
-    
 }
 
 void setup()
@@ -594,9 +592,16 @@ void setup()
         Serial.println("Received and Saved JSON: " + jsonString);
         request->send(200, "text/html","i was here"); });
 
-    server.on("/check", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(200, "application/json", json);
-    });
+    server.on("/check", HTTP_GET, [](AsyncWebServerRequest *request)
+              {
+        String json = R"({
+    "network": "đăng kí mạng....done.",
+    "serial": "kết nối serial....done.",
+    "image": "kiểm tra gửi ảnh....done.",
+    "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
+  })";
+    Serial.printf("Ok");
+        request->send(200, "application/json", json); });
     server.begin();
 }
 
