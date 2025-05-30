@@ -234,7 +234,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             gap: 8px;
         }
 
-        .Boxinput required {
+        .BoxInput {
             flex-grow: 1;
             width: 500px;
             height: 30px;
@@ -248,11 +248,11 @@ const char html_page[] PROGMEM = R"rawliteral(
             text-align: center;
         }
 
-        .ContainerBoxinput required .input requiredItem {
+        .ContainerBoxInput .inputItem {
             width: 50px;
         }
 
-        .ContainerBoxinput required {
+        .ContainerBoxInput {
             width: 170px;
         }
     </style>
@@ -264,25 +264,25 @@ const char html_page[] PROGMEM = R"rawliteral(
         <form action="/data" method="post">
             <h3>Cấu hình server</h3>
             <div class="Container">
-                <div class="Boxinput required"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname" type="text"
+                <div class="BoxInput"><span>Hostname</span><input value="%HOSTNAME%" name="hostname" type="text"
                         placeholder="vd:example.com"></div>
-                <div class="Boxinput required"><span>Path:</span><input required value="%PATH%" name="path" type="text"
+                <div class="BoxInput"><span>Path:</span><input value="%PATH%" name="path" type="text"
                         placeholder="vd:/sub/nest"></div>
-                <div class="Boxinput required"><span>Port:</span><input required value="%PORT%" name="port" type="text" placeholder="0">
+                <div class="BoxInput"><span>Port:</span><input value="%PORT%" name="port" type="text" placeholder="0">
                 </div>
-                <div class="Boxinput required">
+                <div class="BoxInput">
                     <span>Chu kì ảnh tải lên:</span>
-                    <div class="ContainerBoxinput required">
-                        <input required style="width: 62%; height: 80%;" class="input requiredItem" name="chuki" type="number"
+                    <div class="ContainerBoxInput">
+                        <input style="width: 62%; height: 80%;" class="inputItem" name="chuki" type="number"
                             placeholder="0">
                         <select style="height: 96%;" name="donvichuki" id="">
                             <option value="86400">Ngày</option>
                         </select>
                     </div>
                 </div>
-                <div class="Boxinput required"><span>Độ sáng khi chụp:</span><input required value="%DOSANG%" name="dosang" type="text"
+                <div class="BoxInput"><span>Độ sáng khi chụp:</span><input value="%DOSANG%" name="dosang" type="text"
                         placeholder="0"></div>
-                <div class="Boxinput required">
+                <div class="BoxInput">
                     <label for="options">Loại đồng hồ:</label>
                     <select class="option-select" id="options" name="options">
                         <option value="">Select</option>
@@ -290,27 +290,27 @@ const char html_page[] PROGMEM = R"rawliteral(
                         <option value="George kent DN15">George kent DN15</option>
                     </select>
                 </div>
-                <div class="Boxinput required"><span>Cắt ảnh(Top):</span><input required value="%TOP%" name="cropTop" type="number"
+                <div class="BoxInput"><span>Cắt ảnh(Top):</span><input value="%TOP%" name="cropTop" type="number"
                         placeholder="0"></div>
-                <div class="Boxinput required"><span>Cắt ảnh(Left):</span><input required value="%LEFT%" name="cropLeft" type="number"
+                <div class="BoxInput"><span>Cắt ảnh(Left):</span><input value="%LEFT%" name="cropLeft" type="number"
                         placeholder="0"></div>
-                <div class="Boxinput required"><span>Cắt ảnh(Right):</span><input required value="%RIGHT%" name="cropRight" type="number"
+                <div class="BoxInput"><span>Cắt ảnh(Right):</span><input value="%RIGHT%" name="cropRight" type="number"
                         placeholder="0"></div>
-                <div class="Boxinput required"><span>Cắt ảnh(Bottom):</span><input required value="%BOTTOM%" name="cropBottom"
+                <div class="BoxInput"><span>Cắt ảnh(Bottom):</span><input value="%BOTTOM%" name="cropBottom"
                         type="number" placeholder="0"></div>
             </div>
             <h3>Thông tin khách hàng</h3>
             <div class="Container">
-                <div class="Boxinput required"><span>Tên: </span><input required value="%TENKH%" name="tenKH" type="text"
+                <div class="BoxInput"><span>Tên: </span><input value="%TENKH%" name="tenKH" type="text"
                         placeholder="vd: toi la UwU"></div>
-                <div class="Boxinput required"><span>Số danh bộ: </span><input required value="%SDB%" name="SDB" type="text"
+                <div class="BoxInput"><span>Số danh bộ: </span><input value="%SDB%" name="SDB" type="text"
                         placeholder="vd: bột tôm"></div>
-                <div class="Boxinput required"><span>ID thiết bị: </span><input required value="%IDDEVICE%" name="idDevice" type="text"
+                <div class="BoxInput"><span>ID thiết bị: </span><input value="%IDDEVICE%" name="idDevice" type="text"
                         placeholder="vd:UwU" disabled></div>
             </div>
             <h3>Cấu hình NB IOT</h3>
             <div class="Container">
-                <div class="Boxinput required"><span>Tên PDN: </span><input required value="%PDN%" name="PDN" type="text"
+                <div class="BoxInput"><span>Tên PDN: </span><input value="%PDN%" name="PDN" type="text"
                         placeholder="vd: toi la UwU"></div>
             </div>
             <button type="submit">Submit</button>
