@@ -278,10 +278,10 @@ const char html_page[] PROGMEM = R"rawliteral(
  // Add event listener (this ensures it works dynamically) optionValue.addEventListener("change", handleOnChangeSelect); }); </script>
 )rawliteral";
 
-void CheckValueExist(JsonDocument &doc, const String &input required, const char *keyName)
+void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName)
 {
-    if (!input required.isEmpty())
-        doc[keyName] = input required.c_str();
+    if (!input.isEmpty())
+        doc[keyName] = input.c_str();
 }
 
 void setup()
