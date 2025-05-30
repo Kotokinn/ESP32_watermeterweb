@@ -583,7 +583,7 @@ void setup()
         Serial.println("Received and Saved JSON: " + jsonString);
         request->send(200, "text/html","i was here"); });
 
-    server.on("/start-check", handleStartCheck);
+    server.on("/check", handleStartCheck);
 
     server.begin();
 }
