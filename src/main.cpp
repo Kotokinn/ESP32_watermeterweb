@@ -390,7 +390,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-         const btn_check = document.querySelector('.btn-check');
+        const btn_check = document.querySelector('.btn-check');
         btn_check.addEventListener('click', () => {
             console.log("aaaaaaaaaaa");
             fetch('/check') // replace with actual ESP IP
