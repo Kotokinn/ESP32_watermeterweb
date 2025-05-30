@@ -534,13 +534,7 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
 
 void handleStartCheck(AsyncWebServerRequest *request)
 {
-    String json = R"({
-    "network": "đăng kí mạng....done.",
-    "serial": "kết nối serial....done.",
-    "image": "kiểm tra gửi ảnh....done.",
-    "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
-  })";
-    Serial.printf("Ok");
+    
     
 }
 
