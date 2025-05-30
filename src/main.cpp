@@ -234,7 +234,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             gap: 8px;
         }
 
-        .BoxInput {
+        .Boxinput required {
             flex-grow: 1;
             width: 500px;
             height: 30px;
@@ -248,64 +248,12 @@ const char html_page[] PROGMEM = R"rawliteral(
             text-align: center;
         }
 
-        .ContainerBoxInput .inputItem {
+        .ContainerBoxinput required .input requiredItem {
             width: 50px;
         }
 
-        .ContainerBoxInput {
+        .ContainerBoxinput required {
             width: 170px;
-        }
-
-
-        .tab {
-            display: flex;
-            border-bottom: 2px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        .tab-button {
-            width: 50%;
-            background-color: inherit;
-            border: none;
-            outline: none;
-            padding: 14px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
-            border-bottom: 2px solid transparent;
-        }
-
-        .tab-button:hover {
-            background-color: #ddd;
-        }
-
-        .tab-button.active {
-            border-bottom: 2px solid #007bff;
-            font-weight: bold;
-            background-color: #fff;
-        }
-
-        .tab-form {
-            display: none;
-        }
-
-        .tab-form.form-active {
-            display: block;
-        }
-
-        .btn-check {
-            background-color: #90ee90;
-            /* Light green */
-            color: #1e4620;
-            /* Dark green text for contrast */
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.2s, transform 0.1s;
-            box-shadow: 0 2px 5px rgba(144, 238, 144, 0.5);
-            width: 100%;
         }
     </style>
 </head>
@@ -313,34 +261,28 @@ const char html_page[] PROGMEM = R"rawliteral(
 <body>
     <div class="main-container">
         <h2 class="title">Đồng hồ nước</h2>
-        <div class="tab">
-            <button class="tab-button active">Setting config</button>
-            <button class="tab-button">Get status</button>
-        </div>
-
-        <form class="tab-form form-active" action="/data" method="post">
+        <form action="/data" method="post">
             <h3>Cấu hình server</h3>
             <div class="Container">
-                <div class="BoxInput"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname"
-                        type="text" placeholder="vd:example.com"></div>
-                <div class="BoxInput"><span>Path:</span><input required value="%PATH%" name="path" type="text"
+                <div class="Boxinput required"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname" type="text"
+                        placeholder="vd:example.com"></div>
+                <div class="Boxinput required"><span>Path:</span><input required value="%PATH%" name="path" type="text"
                         placeholder="vd:/sub/nest"></div>
-                <div class="BoxInput"><span>Port:</span><input required value="%PORT%" name="port" type="text"
-                        placeholder="0">
+                <div class="Boxinput required"><span>Port:</span><input required value="%PORT%" name="port" type="text" placeholder="0">
                 </div>
-                <div class="BoxInput">
+                <div class="Boxinput required">
                     <span>Chu kì ảnh tải lên:</span>
-                    <div class="ContainerBoxInput">
-                        <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" type="text"
+                    <div class="ContainerBoxinput required">
+                        <input required style="width: 62%; height: 80%;" class="input requiredItem" name="chuki" type="number"
                             placeholder="0">
                         <select style="height: 96%;" name="donvichuki" id="">
                             <option value="86400">Ngày</option>
                         </select>
                     </div>
                 </div>
-                <div class="BoxInput"><span>Độ sáng khi chụp:</span><input required value="%DOSANG%" name="dosang"
-                        type="text" placeholder="0"></div>
-                <div class="BoxInput">
+                <div class="Boxinput required"><span>Độ sáng khi chụp:</span><input required value="%DOSANG%" name="dosang" type="text"
+                        placeholder="0"></div>
+                <div class="Boxinput required">
                     <label for="options">Loại đồng hồ:</label>
                     <select class="option-select" id="options" name="options">
                         <option value="">Select</option>
@@ -348,65 +290,35 @@ const char html_page[] PROGMEM = R"rawliteral(
                         <option value="George kent DN15">George kent DN15</option>
                     </select>
                 </div>
-                <div class="BoxInput"><span>Cắt ảnh(Top):</span><input required value="%TOP%" name="cropTop"
-                        type="number" placeholder="0"></div>
-                <div class="BoxInput"><span>Cắt ảnh(Left):</span><input required value="%LEFT%" name="cropLeft"
-                        type="number" placeholder="0"></div>
-                <div class="BoxInput"><span>Cắt ảnh(Right):</span><input required value="%RIGHT%" name="cropRight"
-                        type="number" placeholder="0"></div>
-                <div class="BoxInput"><span>Cắt ảnh(Bottom):</span><input required value="%BOTTOM%" name="cropBottom"
+                <div class="Boxinput required"><span>Cắt ảnh(Top):</span><input required value="%TOP%" name="cropTop" type="number"
+                        placeholder="0"></div>
+                <div class="Boxinput required"><span>Cắt ảnh(Left):</span><input required value="%LEFT%" name="cropLeft" type="number"
+                        placeholder="0"></div>
+                <div class="Boxinput required"><span>Cắt ảnh(Right):</span><input required value="%RIGHT%" name="cropRight" type="number"
+                        placeholder="0"></div>
+                <div class="Boxinput required"><span>Cắt ảnh(Bottom):</span><input required value="%BOTTOM%" name="cropBottom"
                         type="number" placeholder="0"></div>
             </div>
             <h3>Thông tin khách hàng</h3>
             <div class="Container">
-                <div class="BoxInput"><span>Tên: </span><input required value="%TENKH%" name="tenKH" type="text"
+                <div class="Boxinput required"><span>Tên: </span><input required value="%TENKH%" name="tenKH" type="text"
                         placeholder="vd: toi la UwU"></div>
-                <div class="BoxInput"><span>Số danh bộ: </span><input required value="%SDB%" name="SDB" type="text"
+                <div class="Boxinput required"><span>Số danh bộ: </span><input required value="%SDB%" name="SDB" type="text"
                         placeholder="vd: bột tôm"></div>
-                <div class="BoxInput"><span>ID thiết bị: </span><input required value="%IDDEVICE%" name="idDevice"
-                        type="text" placeholder="vd:UwU" disabled></div>
+                <div class="Boxinput required"><span>ID thiết bị: </span><input required value="%IDDEVICE%" name="idDevice" type="text"
+                        placeholder="vd:UwU" disabled></div>
             </div>
             <h3>Cấu hình NB IOT</h3>
             <div class="Container">
-                <div class="BoxInput"><span>Tên PDN: </span><input required value="%PDN%" name="PDN" type="text"
+                <div class="Boxinput required"><span>Tên PDN: </span><input required value="%PDN%" name="PDN" type="text"
                         placeholder="vd: toi la UwU"></div>
             </div>
             <button type="submit">Submit</button>
-        </form>
-
-        <form class="tab-form" action="/data">
-            <div class="">
-                <p>đăng kí mạng....done.</p>
-                <p>kết nối serial....done.</p>
-                <p>kiểm tra gửi ảnh....done.</p>
-                <p>bắt đầu ngắt kết nối trong .... giây.</p>
-            </div>
-            <button class="btn-check">Starting check</button>
-
         </form>
     </div>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-
-        // button tab
-        const buttons = document.querySelectorAll('.tab-button');
-        const forms = document.querySelectorAll('.tab-form');
-
-        buttons.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                // Remove active state from all buttons
-                buttons.forEach(b => b.classList.remove('active'));
-                // Hide all forms
-                forms.forEach(f => f.classList.remove('form-active'));
-                // Activate clicked button
-                btn.classList.add('active');
-                // Show the corresponding form
-                forms[index].classList.add('form-active');
-            });
-        });
-
-
 
         const hostname = document.querySelector('input[name="hostname"]');
         const path = document.querySelector('input[name="path"]');
@@ -424,12 +336,6 @@ const char html_page[] PROGMEM = R"rawliteral(
         const tenKH = document.querySelector('input[name="tenKH"]');
         const SDB = document.querySelector('input[name="SDB"]');
         const PDN = document.querySelector('input[name="PDN"]');
-
-
-        function checkValueToDefault(component, defaultValue) {
-            return component.value != null ? component.value : defaultValue;
-        }
-
 
         function sendData(event) {
             event.preventDefault(); // Prevent default form submission
@@ -489,30 +395,17 @@ const char html_page[] PROGMEM = R"rawliteral(
         // Initialize correct state on load
         handleOnChangeSelect();
 
-        checkValueToDefault(hostname, "14.224.158.56");
-        checkValueToDefault(path, "some/path");
-        checkValueToDefault(port, "8080");
-        checkValueToDefault(chuki, "2");
-        checkValueToDefault(donvi_chuki, "60");
-        checkValueToDefault(dosang, "6");
-        checkValueToDefault(top, "6");
-        checkValueToDefault(left, "6");
-        checkValueToDefault(right, "6");
-        checkValueToDefault(bottom, "6");
-        checkValueToDefault(tenKH, "6");
-        checkValueToDefault(SDB, "6");
-        checkValueToDefault(PDN, "6");
-
         // Add event listener (this ensures it works dynamically)
         optionValue.addEventListener("change", handleOnChangeSelect);
     });
 </script>
+</html>
 )rawliteral";
 
-void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName)
+void CheckValueExist(JsonDocument &doc, const String &input required, const char *keyName)
 {
-    if (!input.isEmpty())
-        doc[keyName] = input.c_str();
+    if (!input required.isEmpty())
+        doc[keyName] = input required.c_str();
 }
 
 void setup()
@@ -546,7 +439,7 @@ void setup()
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
               {
-        StaticJsonDocument<512> doc; ////aaaa
+        StaticJsonDocument<512> doc;
 
         // Serial.printf(model.getHostname());
 
