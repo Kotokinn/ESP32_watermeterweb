@@ -532,10 +532,6 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
         doc[keyName] = input.c_str();
 }
 
-void handleStartCheck(AsyncWebServerRequest *request)
-{
-}
-
 void setup()
 {
     Serial.begin(115200);
