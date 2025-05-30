@@ -588,7 +588,7 @@ void setup()
         Serial.println("Received and Saved JSON: " + jsonString);
         request->send(200, "text/html","i was here"); });
 
-    server.on("/check", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               {
         String json = R"({
             "network": "đăng kí mạng....done.",
