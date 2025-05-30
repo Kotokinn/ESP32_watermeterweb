@@ -392,7 +392,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_check = document.querySelector('.btn-check');
         function startCheck() {
-            fetch('/check') // replace with actual ESP IP
+            fetch('/') // replace with actual ESP IP
                 .then(res => res.json())
                 .then(data => {
                     // Update each status line
