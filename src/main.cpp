@@ -611,5 +611,5 @@ void setup()
 void loop()
 {
     dnsServer.processNextRequest();
-    delay();
+    delay(2000);
 }
