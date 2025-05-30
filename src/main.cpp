@@ -306,6 +306,8 @@ const char html_page[] PROGMEM = R"rawliteral(
             transition: background-color 0.3s, box-shadow 0.2s, transform 0.1s;
             box-shadow: 0 2px 5px rgba(144, 238, 144, 0.5);
             width: 100%;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
@@ -374,20 +376,36 @@ const char html_page[] PROGMEM = R"rawliteral(
             <button type="submit">Submit</button>
         </form>
 
-        <form class="tab-form" action="/data">
-            <div class="">
-                <p>đăng kí mạng....done.</p>
-                <p>kết nối serial....done.</p>
-                <p>kiểm tra gửi ảnh....done.</p>
-                <p>bắt đầu ngắt kết nối trong .... giây.</p>
+        <form class="tab-form">
+            <div id="status-output">
+                <p id="net-status">đăng kí mạng....</p>
+                <p id="serial-status">kết nối serial....</p>
+                <p id="image-status">kiểm tra gửi ảnh....</p>
+                <p id="disconnect-status">bắt đầu ngắt kết nối trong .... giây.</p>
             </div>
-            <button class="btn-check">Starting check</button>
-
+            <div class="btn-check" onclick="startCheck()">Starting check</div>
         </form>
     </div>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+        const btn_check = document.querySelector('.btn-check');
+        function startCheck() {
+            fetch('/check') // replace with actual ESP IP
+                .then(res => res.json())
+                .then(data => {
+                    // Update each status line
+                    document.getElementById('net-status').textContent = data.network;
+                    document.getElementById('serial-status').textContent = data.serial;
+                    document.getElementById('image-status').textContent = data.image;
+                    document.getElementById('disconnect-status').textContent = data.disconnect;
+                })
+                .catch(err => {
+                    console.error('ESP request failed:', err);
+                });
+        }
+
 
         // button tab
         const buttons = document.querySelectorAll('.tab-button');
@@ -429,7 +447,6 @@ const char html_page[] PROGMEM = R"rawliteral(
         function checkValueToDefault(component, defaultValue) {
             return component.value != null ? component.value : defaultValue;
         }
-
 
         function sendData(event) {
             event.preventDefault(); // Prevent default form submission
