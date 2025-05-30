@@ -392,29 +392,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_check = document.querySelector('.btn-check');
         btn_check.addEventListener('click', () => {
-        setTimeout(() => {
-        // Simulated request - replace with actual fetch if needed
-        // Example fetch block (uncomment and use with real endpoint):
-        /*
-        fetch('/status')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('net-status').textContent = data.net;
-                document.getElementById('serial-status').textContent = data.serial;
-                document.getElementById('image-status').textContent = data.image;
-                document.getElementById('disconnect-status').textContent = data.disconnect;
-            })
-            .catch(err => {
-                console.error('ESP request failed:', err);
-            });
-        */
-
-        // Demo content for testing without backend
-        document.getElementById('net-status').textContent = "Kết nối mạng thành công";
-        document.getElementById('serial-status').textContent = "Serial đã kết nối";
-        document.getElementById('image-status').textContent = "Ảnh gửi thành công";
-        document.getElementById('disconnect-status').textContent = "Ngắt kết nối sau 10 giây";
-    }, 2000);
+        
         fetch("/status") // you need to define this endpoint on ESP32
             .then(res => res.json())
             .then(data => {
