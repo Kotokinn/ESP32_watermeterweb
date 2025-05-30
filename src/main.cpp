@@ -392,7 +392,6 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_check = document.querySelector('.btn-check');
         btn_check.addEventListener('click', () => {
-            console.log("aaaaaaaaaaa");
             fetch('/check') // replace with actual ESP IP
                 .then(res => res.json())
                 .then(data => {
