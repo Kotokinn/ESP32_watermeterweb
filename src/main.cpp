@@ -598,6 +598,7 @@ void setup()
     String response;
     serializeJson(doc, response);
     request->send(200, "application/json", response); });
+
     server.begin();
 }
 
