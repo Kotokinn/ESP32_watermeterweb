@@ -600,7 +600,7 @@ void setup()
             "image": "kiểm tra gửi ảnh....done.",
             "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
         })";
-    Serial.printf("Ok");
+        Serial.printf("Ok");
         request->send(200, "application/json", json); });
     server.begin();
 }
