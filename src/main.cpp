@@ -400,7 +400,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 fetch("/status") // you need to define this endpoint on ESP32
                 .then(res => res.json())
                 .then(data => {
-                    document.getElementById('net-status').textContent = data.net;
+                    document.getElementById('net-status').textContent ="đăng kí mạng....checkin" + data.net;
                     document.getElementById('serial-status').textContent = data.serial;
                     document.getElementById('image-status').textContent = data.image;
                     document.getElementById('disconnect-status').textContent = data.disconnect;
