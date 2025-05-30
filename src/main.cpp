@@ -383,7 +383,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 <p id="image-status">kiểm tra gửi ảnh....</p>
                 <p id="disconnect-status">bắt đầu ngắt kết nối trong .... giây.</p>
             </div>
-            <div class="btn-check" onclick="startCheck()">Starting check</div>
+            <div class="btn-check">Starting check</div>
         </form>
     </div>
 </body>
