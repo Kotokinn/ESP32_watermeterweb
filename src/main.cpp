@@ -393,8 +393,8 @@ const char html_page[] PROGMEM = R"rawliteral(
         const btn_check = document.querySelector('.btn-check');
         btn_check.addEventListener('click', () => {
             //fetch('/') // replace with actual ESP IP
-                /.then(res => res.json())
-                .then(data => {
+                //.then(res => res.json())
+                //.then(data => {
                     // Update each status line
                     document.getElementById('net-status').textContent = "aaaa";
                     document.getElementById('serial-status').textContent = data.serial;
