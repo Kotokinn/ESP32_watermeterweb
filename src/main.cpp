@@ -400,8 +400,8 @@ const char html_page[] PROGMEM = R"rawliteral(
                     document.getElementById('serial-status').textContent = data.serial;
                     document.getElementById('image-status').textContent = data.image;
                     document.getElementById('disconnect-status').textContent = data.disconnect;
-                })
-                .catch(err => {
+                //})
+                //.catch(err => {
                     console.error('ESP request failed:', err);
                 });
         })
