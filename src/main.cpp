@@ -392,7 +392,16 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_check = document.querySelector('.btn-check');
         btn_check.addEventListener('click', () => {
-        
+        document.getElementById('net-status').textContent = "đăng kí mạng....checkin";
+            document.getElementById('serial-status').textContent = "kết nối serial....checkin";
+            document.getElementById('image-status').textContent = "kiểm tra gửi ảnh....checkin";
+            // document.getElementById('disconnect-status').textContent = "bắt đầu ngắt kết nối trong 69 giây.";
+            setTimeout(() => {
+                document.getElementById('net-status').textContent = "đăng kí mạng....ok";
+                document.getElementById('serial-status').textContent = "kết nối serial....ok";
+                document.getElementById('image-status').textContent = "kiểm tra gửi ảnh....ok";
+                document.getElementById('disconnect-status').textContent = "bắt đầu ngắt kết nối trong 69 giây.";
+            }, 5000)
         fetch("/status") // you need to define this endpoint on ESP32
             .then(res => res.json())
             .then(data => {
