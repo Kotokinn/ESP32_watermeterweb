@@ -390,9 +390,10 @@ const char html_page[] PROGMEM = R"rawliteral(
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-        const btn_check = document.querySelector('.btn-check');
-        function startCheck() {
-            fetch('/') // replace with actual ESP IP
+         const btn_check = document.querySelector('.btn-check');
+        btn_check.addEventListener('click', () => {
+            console.log("aaaaaaaaaaa");
+            fetch('/check') // replace with actual ESP IP
                 .then(res => res.json())
                 .then(data => {
                     // Update each status line
@@ -404,7 +405,8 @@ const char html_page[] PROGMEM = R"rawliteral(
                 .catch(err => {
                     console.error('ESP request failed:', err);
                 });
-        }
+        })
+
 
 
         // button tab
