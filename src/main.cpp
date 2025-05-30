@@ -584,7 +584,6 @@ void setup()
         request->send(200, "text/html","i was here"); });
 
     server.on("/check", handleStartCheck);
-
     server.begin();
 }
 
