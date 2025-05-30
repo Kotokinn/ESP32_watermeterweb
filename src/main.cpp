@@ -401,7 +401,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 .then(res => res.json())
                 .then(data => {
                     document.getElementById('net-status').textContent ="đăng kí mạng...." + data.net;
-                    document.getElementById('serial-status').textContent = data.serial;
+                    document.getElementById('serial-status').textContent ="kết nối serial.... data.serial;
                     document.getElementById('image-status').textContent = data.image;
                     document.getElementById('disconnect-status').textContent = data.disconnect;
                 })
