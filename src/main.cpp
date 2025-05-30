@@ -515,7 +515,7 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
         doc[keyName] = input.c_str();
 }
 
-void handleStartCheck()
+void handleStartCheck(AsyncWebServerRequest *request)
 {
     String json = R"({
     "network": "đăng kí mạng....done.",
@@ -524,7 +524,7 @@ void handleStartCheck()
     "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
   })";
 
-    server.send(200, "application/json", json);
+    request->send(200, "application/json", json);
 }
 
 void setup()
@@ -585,7 +585,7 @@ void setup()
 
 
 
-    server.on("/check", handleStartCheck);
+    server.on("/check", HTTP_GET, handleStartCheck);
     server.begin();
 }
 
