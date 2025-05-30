@@ -298,7 +298,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             /* Light green */
             color: #1e4620;
             /* Dark green text for contrast */
-            padding: 10px 20px;
+            padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 4px;
