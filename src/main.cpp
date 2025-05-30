@@ -601,7 +601,7 @@ void setup()
         request->send(200, "text/html","i was here"); });
 
     server.on("/check", HTTP_GET, [](AsyncWebServerRequest *request){
-        
+        request->send(200, "application/json", json);
     });
     server.begin();
 }
