@@ -540,7 +540,7 @@ void handleStartCheck(AsyncWebServerRequest *request)
     "image": "kiểm tra gửi ảnh....done.",
     "disconnect": "bắt đầu ngắt kết nối trong 5 giây."
   })";
-    Serial.log("Ok ");
+    Serial.prin("Ok ");
     request->send(200, "application/json", json);
 }
 
