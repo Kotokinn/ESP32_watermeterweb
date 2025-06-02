@@ -555,6 +555,7 @@ void setup()
 {
     Serial.begin(115200);
     WiFi.softAP(ssid);
+    
     SPIFFS.begin();
 
     Serial.println("Access Point Started");
