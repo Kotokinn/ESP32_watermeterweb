@@ -591,7 +591,7 @@ void setup()
                   page.replace("%SDB%", model.getSDB());
                   page.replace("%IDDEVICE%", model.getIDDevice());
                   page.replace("%PDN%", model.getPDN());
-                  
+                  {}
                   //status checking 
                   page.replace("%SIM%", "OK");
                   page.replace("%SERIAL%", "OK");
