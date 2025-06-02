@@ -656,7 +656,6 @@ void myLoopTask(void *pvParameters)
     for (;;)
     {
         dnsServer.processNextRequest();
-
         vTaskDelay(10 / portTICK_PERIOD_MS); // delay nhỏ
     }
 }
