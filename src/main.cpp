@@ -180,7 +180,6 @@ bool loadFromFile(ModelData &model) // note
 
         if (doc.containsKey("hostname"))
             model.setHostname(doc["hostname"]);
-        }
         if (doc.containsKey("path"))
             model.setPath(doc["path"].as<String>());
         if (doc.containsKey("port"))
