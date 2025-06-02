@@ -162,7 +162,7 @@ bool loadFromFile(ModelData &model) // note
     {
         Serial.println("Failed to open file for reading");
         Serial.println("\n using default setting");
-        
+
         StaticJsonDocument<1024> doc;
         doc["hostname"] = "http://14.224.158.56";
         doc["path"] = "/donghonuoc/upload";
@@ -178,7 +178,34 @@ bool loadFromFile(ModelData &model) // note
         doc["idDevice"] = "3";
         doc["PDN"] = "69";
 
-
+        if (doc.containsKey("hostname"))
+        {
+            model.setHostname(doc["hostname"]);
+        }
+        if (doc.containsKey("path"))
+            model.setPath(doc["path"].as<String>());
+        if (doc.containsKey("port"))
+            model.setPort(doc["port"]);
+        if (doc.containsKey("chuki"))
+            model.setChuki(doc["chuki"]);
+        if (doc.containsKey("dosang"))
+            model.setDoSang(doc["dosang"]);
+        if (doc.containsKey("top"))
+            model.setTop(doc["top"]);
+        if (doc.containsKey("left"))
+            model.setLeft(doc["left"]);
+        if (doc.containsKey("right"))
+            model.setRight(doc["right"]);
+        if (doc.containsKey("bottom"))
+            model.setBott(doc["bottom"]);
+        if (doc.containsKey("tenKH"))
+            model.setTenKH(doc["tenKH"]);
+        if (doc.containsKey("SDB"))
+            model.setSDB(doc["SDB"]);
+        if (doc.containsKey("idDevice"))
+            model.setIDDevice(doc["idDevice"]);
+        if (doc.containsKey("PDN"))
+            model.setPDN(doc["PDN"]);
         return false;
     }
 
