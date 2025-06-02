@@ -158,7 +158,7 @@ void saveToFile(const String &jsonString)
 bool loadFromFile(ModelData &model) // note
 {
     File file = SPIFFS.open("/config.json", "r");
-    if (!file) // file
+    if (!file) // file con
     {
         Serial.println("Failed to open file for reading");
         Serial.println("\n using default setting");
