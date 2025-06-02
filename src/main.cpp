@@ -593,7 +593,7 @@ void setup()
                   page.replace("%PDN%", model.getPDN());
 
                   //status checking 
-                  page.replace("%SIM%", model.getPDN());
+                  page.replace("%SIM%", "OK");
                   page.replace("%SERIAL%", model.getPDN());
                   page.replace("%IMAGE%", model.getPDN());
 
