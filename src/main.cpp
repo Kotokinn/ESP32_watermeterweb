@@ -580,8 +580,7 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
         doc[keyName] = input.c_str();
 }
 
-void NetworkConnect_Task(void *parameter);
-void setup()
+void NetworkConnect_Task(void *parameter) ;void setup()
 {
     Serial.begin(115200);
     WiFi.softAP(ssid);
