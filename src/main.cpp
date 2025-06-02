@@ -137,9 +137,9 @@ void saveToFile(const String &jsonString)
 // Function to load data from SPIFFS and return a ModelData object
 void loadFromFile(ModelData &model) // note
 {
-    
+
     File file = SPIFFS.open(CONFIGURATION_FILE, "r");
-    if (!SPIFFS.begin()  !file) // file config not found using default setting
+    if (!SPIFFS.begin() && !file) // file config not found using default setting
     {
         Serial.println("Failed to open file for reading");
         Serial.println("\n using default setting");
@@ -557,9 +557,9 @@ void setup()
     Serial.begin(115200);
     WiFi.softAP(ssid);
 
-    if()
+    if ()
 
-    Serial.println("Access Point Started");
+        Serial.println("Access Point Started");
     dnsServer.start(53, "*", WiFi.softAPIP());
 
     server.onNotFound([](AsyncWebServerRequest *request)
