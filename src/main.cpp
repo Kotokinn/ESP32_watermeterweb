@@ -7,7 +7,7 @@
 #define CONFIGURATION_FILE "/config.json"
 
 TaskHandle_t Task_Web;
-TaskHandle_t ;
+TaskHandle_t Task_other;
 
 const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
