@@ -597,7 +597,7 @@ void setup()
                   page.replace("%HOSTNAME%",model.getHostname());
                   page.replace("%PATH%", model.getPath());
                   page.replace("%PORT%", model.getPort());
-                  page.replace("%CHUKI%", model.getChuki(): "1");
+                  page.replace("%CHUKI%", model.getChuki());
                   page.replace("%DOSANG%", model.getDoSang(): "6");
                   page.replace("%TOP%", model.getTop(): "6");
                   page.replace("%LEFT%", model.getLeft(): "6");
