@@ -648,11 +648,11 @@ void setup()
     xTaskCreatePinnedToCore(
         Web_task,   // Hàm loop chạy trên Core 0
         "Web_task", // Tên task
-        4096,         // Stack size
-        NULL,         // Tham số
-        1,            // Priority
-        NULL,         // Task handle
-        0             // Core 0
+        4096,       // Stack size
+        NULL,       // Tham số
+        1,          // Priority
+        NULL,       // Task handle
+        0           // Core 0
     );
 }
 
@@ -660,7 +660,7 @@ void loop()
 {
 }
 
-void myLoopTask(void *pvParameters)
+void Web_task(void *pvParameters)
 {
     for (;;)
     {
