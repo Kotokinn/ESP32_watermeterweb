@@ -137,7 +137,7 @@ void saveToFile(const String &jsonString)
 // Function to load data from SPIFFS and return a ModelData object
 void loadFromFile(ModelData &model) // note
 {
-    SPIFFS.begin();
+    
     File file = SPIFFS.open(CONFIGURATION_FILE, "r");
     if (!file) // file config not found using default setting
     {
