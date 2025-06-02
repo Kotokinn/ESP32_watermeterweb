@@ -599,7 +599,7 @@ void setup()
                   page.replace("%PORT%", model.getPort());
                   page.replace("%CHUKI%", model.getChuki());
                   page.replace("%DOSANG%", model.getDoSang());
-                  page.replace("%TOP%", model.getTop(): "6");
+                  page.replace("%TOP%", model.getTop());
                   page.replace("%LEFT%", model.getLeft(): "6");
                   page.replace("%RIGHT%", model.getRight(): "6");
                   page.replace("%BOTTOM%", model.getBott(): "9");
