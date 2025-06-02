@@ -162,11 +162,22 @@ bool loadFromFile(ModelData &model) // note
     {
         Serial.println("Failed to open file for reading");
         Serial.println("\n using default setting");
-
+        StaticJsonDocument<1024> doc;
+        doc["hostname"] = "http://14.224.158.56";
+        doc["path"] = "/donghonuoc/upload";
+        doc["port"] = "8081";
+        doc["chuki"] = "1";
+        doc["dosang"] = "6";
+        doc["top"] = "6";
+        doc["left"] = "6";
+        doc["right"] = "6";
+        doc["bottom"] = "6";
+        doc["tenKH"] = "Default";
+        doc["SDB"] = "000000";
+        doc["idDevice"] = "3";
+        doc["PDN"] = "69";
         return false;
     }
-
-    
 
     StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, file);
