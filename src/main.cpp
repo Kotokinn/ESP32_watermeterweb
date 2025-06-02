@@ -169,6 +169,10 @@ bool loadFromFile(ModelData &model) // note
     doc["path"] = "Connected";
     doc["chuki"] = "Sent";
     doc["dosang"] = "10s";
+    doc["dosang"] = "10s";
+    doc["dosang"] = "10s";
+    doc["dosang"] = "10s";
+    doc["dosang"] = "10s";
 
     StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, file);
