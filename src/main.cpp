@@ -6,7 +6,7 @@
 
 #define CONFIGURATION_FILE "/config.json"
 
-TaskHandle_t Web;
+TaskHandle_t Task_Web;
 TaskHandle_t Task2;
 
 const char *ssid = "ESP32_AP";
