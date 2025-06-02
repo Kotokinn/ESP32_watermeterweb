@@ -164,7 +164,12 @@ bool loadFromFile(ModelData &model) // note
         return false;
     }
 
-    
+    StaticJsonDocument<256> doc;
+    doc["net"] = "OK";
+    doc["serial"] = "Connected";
+    doc["image"] = "Sent";
+    doc["disconnect"] = "10s";
+
     StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, file);
     if (error)
