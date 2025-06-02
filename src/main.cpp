@@ -209,44 +209,44 @@ bool loadFromFile(ModelData &model) // note
         return false;
     }
     else{
-        
-    }
-    StaticJsonDocument<1024> doc;
-    DeserializationError error = deserializeJson(doc, file);
-    if (error)
-    {
-        Serial.println("Failed to parse JSON");
-        return false;
-    }
 
-    if (doc.containsKey("hostname"))
-    {
-        model.setHostname(doc["hostname"]);
+        StaticJsonDocument<1024> doc;
+        DeserializationError error = deserializeJson(doc, file);
+        if (error)
+        {
+            Serial.println("Failed to parse JSON");
+            return false;
+        }
+    
+        if (doc.containsKey("hostname"))
+        {
+            model.setHostname(doc["hostname"]);
+        }
+        if (doc.containsKey("path"))
+            model.setPath(doc["path"].as<String>());
+        if (doc.containsKey("port"))
+            model.setPort(doc["port"]);
+        if (doc.containsKey("chuki"))
+            model.setChuki(doc["chuki"]);
+        if (doc.containsKey("dosang"))
+            model.setDoSang(doc["dosang"]);
+        if (doc.containsKey("top"))
+            model.setTop(doc["top"]);
+        if (doc.containsKey("left"))
+            model.setLeft(doc["left"]);
+        if (doc.containsKey("right"))
+            model.setRight(doc["right"]);
+        if (doc.containsKey("bottom"))
+            model.setBott(doc["bottom"]);
+        if (doc.containsKey("tenKH"))
+            model.setTenKH(doc["tenKH"]);
+        if (doc.containsKey("SDB"))
+            model.setSDB(doc["SDB"]);
+        if (doc.containsKey("idDevice"))
+            model.setIDDevice(doc["idDevice"]);
+        if (doc.containsKey("PDN"))
+            model.setPDN(doc["PDN"]);
     }
-    if (doc.containsKey("path"))
-        model.setPath(doc["path"].as<String>());
-    if (doc.containsKey("port"))
-        model.setPort(doc["port"]);
-    if (doc.containsKey("chuki"))
-        model.setChuki(doc["chuki"]);
-    if (doc.containsKey("dosang"))
-        model.setDoSang(doc["dosang"]);
-    if (doc.containsKey("top"))
-        model.setTop(doc["top"]);
-    if (doc.containsKey("left"))
-        model.setLeft(doc["left"]);
-    if (doc.containsKey("right"))
-        model.setRight(doc["right"]);
-    if (doc.containsKey("bottom"))
-        model.setBott(doc["bottom"]);
-    if (doc.containsKey("tenKH"))
-        model.setTenKH(doc["tenKH"]);
-    if (doc.containsKey("SDB"))
-        model.setSDB(doc["SDB"]);
-    if (doc.containsKey("idDevice"))
-        model.setIDDevice(doc["idDevice"]);
-    if (doc.containsKey("PDN"))
-        model.setPDN(doc["PDN"]);
 
     return true;
 }
