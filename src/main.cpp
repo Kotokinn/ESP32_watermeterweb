@@ -157,7 +157,6 @@ void saveToFile(const String &jsonString)
 // Function to load data from SPIFFS and return a ModelData object
 bool loadFromFile(ModelData &model) // note
 {
-
     File file = SPIFFS.open("/config.json", "r");
     if (!file)
     {
