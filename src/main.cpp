@@ -410,7 +410,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
-            // fetch('/disconnect') // replace with actual ESP IP
+            // fetch('/disconnect')
                 // .then(res => res.json())
                 // .then(data => {
                     // Update each status line
