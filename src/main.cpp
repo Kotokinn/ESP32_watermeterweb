@@ -414,7 +414,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 .then(res => res.json())
                 .then(data => {
                     // Update each status line
-                    document.getElementById('disconnect-status').textContent = "bắt đầu ngắt kết nối trong 5 giây.";
+                    document.getElementById('disconnect-status').textContent = data;
                 })
                 .catch(err => {
                     console.error('ESP request failed:', err);
