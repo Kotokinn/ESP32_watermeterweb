@@ -670,15 +670,7 @@ void setup()
     dnsServer.start(53, "*", WiFi.softAPIP());
 
     // 🟩 Tạo task myLoopTask trên Core 0 thay thế loop()
-    xTaskCreatePinnedToCore(
-        myLoopTask,   // Hàm loop chạy trên Core 0
-        "myLoopTask", // Tên task
-        4096,         // Stack size
-        NULL,         // Tham số
-        1,            // Priority
-        NULL,         // Task handle
-        0             // Core 0
-    );
+    
 
     // Các task khác (webserver_task, dnsserver_task...) nếu cần
 }
