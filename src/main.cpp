@@ -593,7 +593,10 @@ void setup()
                   page.replace("%PDN%", model.getPDN());
 
                   //status checking 
-                  
+                  page.replace("%PDN%", model.getPDN());
+                  page.replace("%PDN%", model.getPDN());
+                  page.replace("%PDN%", model.getPDN());
+
                   request->send(200, "text/html; charset=utf-8", page); });
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
