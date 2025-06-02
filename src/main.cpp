@@ -656,10 +656,10 @@ xTaskCreatePinnedToCore(
 );
 // }
 
-// void loop()
-// {
-//
-// }
+void loop()
+{
+
+}
 
 void myLoopTask(void *pvParameters)
 {
