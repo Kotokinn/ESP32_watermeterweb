@@ -574,6 +574,7 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
         doc[keyName] = input.c_str();
 }
 
+void Web_task(void *pvParameters)
 void setup()
 {
     Serial.begin(115200);
