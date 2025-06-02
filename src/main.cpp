@@ -173,7 +173,7 @@ bool loadFromFile(ModelData &model) // note
     doc["left"] = "10s";
     doc["right"] = "10s";
     doc["bottom"] = "10s";
-    doc["bottom"] = "10s";
+    doc["tenKH"] = "10s";
     doc["bottom"] = "10s";
     doc["bottom"] = "10s";
 
