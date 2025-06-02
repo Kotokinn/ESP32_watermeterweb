@@ -169,7 +169,7 @@ bool loadFromFile(ModelData &model) // note
     doc["path"] = "/donghonuoc/upload";
     doc["port"] = "8081";
     doc["chuki"] = "1";
-    doc["dosang"] = "10s";
+    doc["dosang"] = "6";
     doc["top"] = "10s";
     doc["left"] = "10s";
     doc["right"] = "10s";
