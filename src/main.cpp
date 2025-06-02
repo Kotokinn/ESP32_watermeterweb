@@ -401,7 +401,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 <p id="disconnect-status">bắt đầu ngắt kết nối trong .... giây.</p>
             </div>
             <div class="misterious-space"></div>
-            <div class="btn-check">Starting check</div>
+            <div class="btn-check">Disconnect web</div>
         </form>
     </div>
 </body>
