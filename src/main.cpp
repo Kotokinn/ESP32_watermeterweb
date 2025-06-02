@@ -606,7 +606,7 @@ void setup()
                   page.replace("%TENKH%", model.getTenKH());
                   page.replace("%SDB%", model.getSDB());
                   page.replace("%IDDEVICE%", model.getIDDevice());
-                  page.replace("%PDN%", model.getPDN(): "wt is that");
+                  page.replace("%PDN%", model.getPDN());
                   request->send(200, "text/html; charset=utf-8", page); });
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
