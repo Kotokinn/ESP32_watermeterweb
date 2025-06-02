@@ -6,7 +6,7 @@
 
 
 const char *ssid = "ESP32_AP";
-#defined CONFIGURATION_FILE "/config.json"
+#define CONFIGURATION_FILE "/config.json"
 
 AsyncWebServer server(80);
 DNSServer dnsServer;
