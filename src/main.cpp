@@ -295,7 +295,6 @@
 //             width: 170px;
 //         }
 
-
 //         .tab {
 //             display: flex;
 //             border-bottom: 2px solid #ccc;
@@ -453,8 +452,6 @@
 //             }, 5000)
 //     });
 
-
-
 //         // button tab
 //         const buttons = document.querySelectorAll('.tab-button');
 //         const forms = document.querySelectorAll('.tab-form');
@@ -472,8 +469,6 @@
 //             });
 //         });
 
-
-
 //         const hostname = document.querySelector('input[name="hostname"]');
 //         const path = document.querySelector('input[name="path"]');
 //         const port = document.querySelector('input[name="port"]');
@@ -490,7 +485,6 @@
 //         const tenKH = document.querySelector('input[name="tenKH"]');
 //         const SDB = document.querySelector('input[name="SDB"]');
 //         const PDN = document.querySelector('input[name="PDN"]');
-
 
 //         function checkValueToDefault(component, defaultValue) {
 //             return component.value != null ? component.value : defaultValue;
@@ -595,7 +589,7 @@
 //     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
 //               {
 //                   String page = FPSTR(html_page);
-//                   loadFromFile(model); // check configuration file 
+//                   loadFromFile(model); // check configuration file
 //                   page.replace("%HOSTNAME%",model.getHostname());
 //                   page.replace("%PATH%", model.getPath());
 //                   page.replace("%PORT%", model.getPort());
@@ -657,5 +651,41 @@
 //     dnsServer.processNextRequest();
 // }
 
+void myLoopTask(void *pvParameters)
+{
+    for (;;)
+    {
+        // Toàn bộ code trong loop() của bạn
+        dnsServer.processNextRequest(); // Ví dụ
 
+        vTaskDelay(10 / portTICK_PERIOD_MS); // delay nhỏ
+    }
+}
 
+void setup()
+{
+    Serial.begin(115200);
+
+    // WiFi, SPIFFS, server config...
+    WiFi.softAP("ESP32_AP");
+
+    dnsServer.start(53, "*", WiFi.softAPIP());
+
+    // 🟩 Tạo task myLoopTask trên Core 0 thay thế loop()
+    xTaskCreatePinnedToCore(
+        myLoopTask,   // Hàm loop chạy trên Core 0
+        "myLoopTask", // Tên task
+        4096,         // Stack size
+        NULL,         // Tham số
+        1,            // Priority
+        NULL,         // Task handle
+        0             // Core 0
+    );
+
+    // Các task khác (webserver_task, dnsserver_task...) nếu cần
+}
+
+void loop()
+{
+    // 🟩 Không làm gì ở đây nữa
+}
