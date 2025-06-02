@@ -668,22 +668,3 @@ void myLoopTask(void *pvParameters)
         vTaskDelay(10 / portTICK_PERIOD_MS); // delay nhỏ
     }
 }
-
-void setup()
-{
-    Serial.begin(115200);
-
-    // WiFi, SPIFFS, server config...
-    WiFi.softAP("ESP32_AP");
-
-    dnsServer.start(53, "*", WiFi.softAPIP());
-
-    // 🟩 Tạo task myLoopTask trên Core 0 thay thế loop()
-
-    // Các task khác (webserver_task, dnsserver_task...) nếu cần
-}
-
-void loop()
-{
-    // 🟩 Không làm gì ở đây nữa
-}
