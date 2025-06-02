@@ -594,7 +594,7 @@ void setup()
               {
                   String page = FPSTR(html_page);
                   loadFromFile(model); // check configuration file 
-                  page.replace("%HOSTNAME%",model.getHostname() : "http://14.224.158.56");
+                  page.replace("%HOSTNAME%",model.getHostname());
                   page.replace("%PATH%", model.getPath(): "/donghonuoc/upload");
                   page.replace("%PORT%", model.getPort(): "8081");
                   page.replace("%CHUKI%", model.getChuki(): "1");
