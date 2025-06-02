@@ -539,7 +539,7 @@ void setup()
 {
     Serial.begin(115200);
     WiFi.softAP(ssid);
-        SPIFFS.begin(true))
+        SPIFFS.begin(true)
 
     Serial.println("Access Point Started");
     dnsServer.start(53, "*", WiFi.softAPIP());
