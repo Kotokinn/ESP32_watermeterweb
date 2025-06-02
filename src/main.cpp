@@ -181,7 +181,6 @@ bool loadFromFile(ModelData &model) // note
     doc["idDevice"] = "3";
     doc["PDN"] = "69";
 
-    StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, file);
     if (error)
     {
