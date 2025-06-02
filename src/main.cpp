@@ -409,8 +409,17 @@ const char html_page[] PROGMEM = R"rawliteral(
     document.addEventListener("DOMContentLoaded", function () {
 
         const btn_disconnect = document.querySelector('.btn-check');
+        const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
-            window.location.href = "/disconnect";
+            fetch('/disconnect') // replace with actual ESP IP
+                .then(res => res.json())
+                .then(data => {
+                    // Update each status line
+                    document.getElementById('disconnect-status').textContent = "bắt đầu ngắt kết nối trong 10 giây.";
+                })
+                .catch(err => {
+                    console.error('ESP request failed:', err);
+                });
         });
 
         //btn_check.addEventListener('click', () => {
