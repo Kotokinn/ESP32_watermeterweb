@@ -421,7 +421,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                     document.getElementById('net-status').textContent ="đăng kí mạng...." + data.net;
                     document.getElementById('serial-status').textContent ="kết nối serial...." + data.serial;
                     document.getElementById('image-status').textContent = "kiểm tra gửi ảnh...." + data.image;
-                    document.getElementById('disconnect-status').textContent ="Dis"+ data.disconnect;
+                    document.getElementById('disconnect-status').textContent ="Disconnect "+ data.disconnect;
                 })
                 .catch(err => {
                     console.error('ESP request failed:', err);
