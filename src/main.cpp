@@ -647,7 +647,7 @@ void setup()
 
     xTaskCreatePinnedToCore(
         Web_task,   // Hàm loop chạy trên Core 0
-        "myLoopTask", // Tên task
+        "Web_task", // Tên task
         4096,         // Stack size
         NULL,         // Tham số
         1,            // Priority
