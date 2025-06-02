@@ -160,7 +160,7 @@ void saveToFile(const String &jsonString)
 bool loadFromFile(ModelData &model) // note
 {
     File file = SPIFFS.open(CONFIGURATION_FILE, "r");
-    if (!file) // file config not found 
+    if (!file) // file config not found using default setting
     {
         Serial.println("Failed to open file for reading");
         Serial.println("\n using default setting");
