@@ -554,20 +554,20 @@ void setup()
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               {
                   String page = FPSTR(html_page);
-                  if(loadFromFile(model)) Serial.println(model.getHostname());
-                  page.replace("%HOSTNAME%",loadFromFile(model) ? model.getHostname() : "http://14.224.158.56");
-                  page.replace("%PATH%", loadFromFile(model) ? model.getPath(): "/donghonuoc/upload");
-                  page.replace("%PORT%", loadFromFile(model) ? model.getPort(): "8081");
-                  page.replace("%CHUKI%", loadFromFile(model) ? model.getChuki(): "1");
-                  page.replace("%DOSANG%", loadFromFile(model) ? model.getDoSang(): "6");
-                  page.replace("%TOP%", loadFromFile(model) ? model.getTop(): "6");
-                  page.replace("%LEFT%", loadFromFile(model) ? model.getLeft(): "6");
-                  page.replace("%RIGHT%", loadFromFile(model) ? model.getRight(): "6");
-                  page.replace("%BOTTOM%", loadFromFile(model) ? model.getBott(): "9");
-                  page.replace("%TENKH%", loadFromFile(model) ? model.getTenKH(): "VDTAS");
-                  page.replace("%SDB%", loadFromFile(model) ? model.getSDB(): "19216811");
-                  page.replace("%IDDEVICE%", loadFromFile(model) ? model.getIDDevice(): "abh");
-                  page.replace("%PDN%", loadFromFile(model) ? model.getPDN(): "wt is that");
+                  bool isLoadSucces = loadFromFile(model);
+                  page.replace("%HOSTNAME%",isLoadSucces ? model.getHostname() : "http://14.224.158.56");
+                  page.replace("%PATH%", isLoadSucces ? model.getPath(): "/donghonuoc/upload");
+                  page.replace("%PORT%", isLoadSucces ? model.getPort(): "8081");
+                  page.replace("%CHUKI%", isLoadSucces ? model.getChuki(): "1");
+                  page.replace("%DOSANG%", isLoadSucces ? model.getDoSang(): "6");
+                  page.replace("%TOP%", isLoadSucces ? model.getTop(): "6");
+                  page.replace("%LEFT%", isLoadSucces ? model.getLeft(): "6");
+                  page.replace("%RIGHT%", isLoadSucces ? model.getRight(): "6");
+                  page.replace("%BOTTOM%", isLoadSucces ? model.getBott(): "9");
+                  page.replace("%TENKH%", isLoadSucces ? model.getTenKH(): "VDTAS");
+                  page.replace("%SDB%", isLoadSucces ? model.getSDB(): "19216811");
+                  page.replace("%IDDEVICE%", isLoadSucces ? model.getIDDevice(): "abh");
+                  page.replace("%PDN%", isLoadSucces ? model.getPDN(): "wt is that");
                   request->send(200, "text/html; charset=utf-8", page); });
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
