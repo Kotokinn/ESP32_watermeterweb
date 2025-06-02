@@ -419,7 +419,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 //.then(res => res.json())
                 //.then(data => {
                     document.getElementById('net-status').textContent ="đăng kí mạng....%SIM%";
-                    document.getElementById('serial-status').textContent ="kết nối serial....";
+                    document.getElementById('serial-status').textContent ="kết nối serial....%SIM%";
                     document.getElementById('image-status').textContent = "kiểm tra gửi ảnh....";
                     document.getElementById('disconnect-status').textContent ="Disconnect after";
                 //})
