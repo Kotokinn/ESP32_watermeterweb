@@ -622,7 +622,7 @@ void setup()
 
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
               { Serial.printf("Disconneting server");
-                request->send(200, "application/json", response);
+                request->send(200,"text/plain", response);
                 server.end(); });
 
     // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
