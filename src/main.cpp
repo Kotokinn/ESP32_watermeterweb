@@ -654,11 +654,10 @@ xTaskCreatePinnedToCore(
     NULL,         // Task handle
     0             // Core 0
 );
-// }
+}
 
 void loop()
 {
-
 }
 
 void myLoopTask(void *pvParameters)
