@@ -350,7 +350,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 <div class="BoxInput">
                     <span>Chu kì ảnh tải lên:</span>
                     <div class="ContainerBoxInput">
-                        <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" value="" type="text"
+                        <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" value="%CHUKI" type="text"
                             placeholder="0">
                         <select style="height: 96%;" name="donvichuki" id="">
                             <option value="86400">Ngày</option>
