@@ -593,7 +593,7 @@ void setup()
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               {
                   String page = FPSTR(html_page);
-                  bool isLoadSucces = loadFromFile(model);
+                  loadFromFile(model);
                   page.replace("%HOSTNAME%",isLoadSucces ? model.getHostname() : "http://14.224.158.56");
                   page.replace("%PATH%", isLoadSucces ? model.getPath(): "/donghonuoc/upload");
                   page.replace("%PORT%", isLoadSucces ? model.getPort(): "8081");
