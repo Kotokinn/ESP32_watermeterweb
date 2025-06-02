@@ -410,7 +410,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_check = document.querySelector('.btn-check');
         //btn_check.addEventListener('click', () => {
-        document.getElementById('net-status').textContent = "đăng kí mạng....checkin";
+            document.getElementById('net-status').textContent = "đăng kí mạng....checkin";
             document.getElementById('serial-status').textContent = "kết nối serial....checkin";
             document.getElementById('image-status').textContent = "kiểm tra gửi ảnh....checkin";
             // document.getElementById('disconnect-status').textContent = "bắt đầu ngắt kết nối trong 69 giây.";
