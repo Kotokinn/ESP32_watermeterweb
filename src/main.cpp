@@ -539,6 +539,12 @@ void setup()
 {
     Serial.begin(115200);
     WiFi.softAP(ssid);
+        if (!SPIFFS.begin(true))
+    {
+        Serial.println("SPIFFS Mount Failed");
+        return false;
+    }
+
     Serial.println("Access Point Started");
     dnsServer.start(53, "*", WiFi.softAPIP());
 
