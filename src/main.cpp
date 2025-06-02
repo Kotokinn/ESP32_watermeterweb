@@ -176,6 +176,7 @@ bool loadFromFile(ModelData &model) // note
     doc["tenKH"] = "10s";
     doc["SDB"] = "10s";
     doc["idDevice"] = "10s";
+    doc["idDevice"] = "10s";
 
     StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, file);
