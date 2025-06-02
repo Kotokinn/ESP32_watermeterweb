@@ -594,7 +594,7 @@ void setup()
 
                   //status checking 
                   page.replace("%SIM%", "OK");
-                  page.replace("%SERIAL%", model.getPDN());
+                  page.replace("%SERIAL%", "OK");
                   page.replace("%IMAGE%", model.getPDN());
 
                   request->send(200, "text/html; charset=utf-8", page); });
