@@ -622,10 +622,8 @@ void setup()
 
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
               { Serial.printf("Disconneting server");
-                request->send(200,"text/plain", "Disconneting server");
                 server.reset();
-                WiFi.disconnect(true);
-                 });
+                WiFi.disconnect(true); });
 
     // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
     //           {
