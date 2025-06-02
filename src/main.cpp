@@ -650,6 +650,8 @@ void setup()
     request->send(200, "application/json", response); });
 
     server.begin();
+
+    xTaskCreatePinnedToCore(NetworkConnect_Task, "NetworkConnect_Task", 4 * 1024, NULL, 1, &Task_NetworkConnect, 1);
 }
 
 void loop()
