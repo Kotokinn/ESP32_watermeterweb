@@ -604,7 +604,7 @@ void setup()
                   page.replace("%RIGHT%", model.getRight());
                   page.replace("%BOTTOM%", model.getBott());
                   page.replace("%TENKH%", model.getTenKH());
-                  page.replace("%SDB%", model.getSDB()");
+                  page.replace("%SDB%", model.getSDB());
                   page.replace("%IDDEVICE%", model.getIDDevice(): "abh");
                   page.replace("%PDN%", model.getPDN(): "wt is that");
                   request->send(200, "text/html; charset=utf-8", page); });
