@@ -646,7 +646,7 @@ void setup()
     server.begin();
 
     xTaskCreatePinnedToCore(
-        Web_,   // Hàm loop chạy trên Core 0
+        Web_task,   // Hàm loop chạy trên Core 0
         "myLoopTask", // Tên task
         4096,         // Stack size
         NULL,         // Tham số
