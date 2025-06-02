@@ -613,7 +613,7 @@ void setup()
         request->send(200, "text/html","i was here"); });
 
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
-              { 
+              { Serial.print
                 server.end(); });
 
     // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
