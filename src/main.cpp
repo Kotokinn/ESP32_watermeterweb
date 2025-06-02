@@ -172,6 +172,9 @@ bool loadFromFile(ModelData &model) // note
     doc["top"] = "10s";
     doc["left"] = "10s";
     doc["right"] = "10s";
+    doc["right"] = "10s";
+    doc["right"] = "10s";
+    doc["right"] = "10s";
     doc["bottom"] = "10s";
 
     StaticJsonDocument<1024> doc;
