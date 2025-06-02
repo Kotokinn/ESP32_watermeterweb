@@ -168,6 +168,7 @@ bool loadFromFile(ModelData &model) // note
     doc["hostname"] = "http://14.224.158.56";
     doc["path"] = "/donghonuoc/upload";
     doc["chuki"] = "1";
+    doc["chuki"] = "1";
     doc["dosang"] = "10s";
     doc["top"] = "10s";
     doc["left"] = "10s";
