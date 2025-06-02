@@ -4,9 +4,9 @@
 #include <ArduinoJson.h>
 #include <SPIFFS.h>
 
+#define CONFIGURATION_FILE "/config.json"
 
 const char *ssid = "ESP32_AP";
-#define CONFIGURATION_FILE "/config.json"
 
 AsyncWebServer server(80);
 DNSServer dnsServer;
