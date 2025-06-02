@@ -412,7 +412,7 @@ const char html_page[] PROGMEM = R"rawliteral(
         btn_disconnect.addEventListener('click', () => {
             window.location.href = "/disconnect";
         });
-        
+
         //btn_check.addEventListener('click', () => {
             document.getElementById('net-status').textContent = "đăng kí mạng....checkin";
             document.getElementById('serial-status').textContent = "kết nối serial....checkin";
