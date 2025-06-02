@@ -595,7 +595,7 @@ void setup()
                   //status checking 
                   page.replace("%SIM%", "OK");
                   page.replace("%SERIAL%", "OK");
-                  page.replace("%IMAGE%", "NO OK");
+                  page.replace("%IMAGE%", "NO OK{}");
 
                   request->send(200, "text/html; charset=utf-8", page); });
 
