@@ -427,7 +427,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                     console.error('ESP request failed:', err);
                 });
             }, 5000)
-    });
+    //});
 
         // button tab
         const buttons = document.querySelectorAll('.tab-button');
