@@ -179,7 +179,6 @@ bool loadFromFile(ModelData &model) // note
         doc["PDN"] = "69";
 
         if (doc.containsKey("hostname"))
-        {
             model.setHostname(doc["hostname"]);
         }
         if (doc.containsKey("path"))
