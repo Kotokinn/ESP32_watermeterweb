@@ -134,30 +134,6 @@ void saveToFile(const String &jsonString)
     Serial.println("Data saved successfully!");
 }
 
-// String loadFromFile()
-// {
-//     if (!SPIFFS.begin(true))
-//     {
-//         Serial.println("SPIFFS Mount Failed");
-//         return "{}";
-//     }
-
-//     File file = SPIFFS.open("/config.json", "r");
-//     if (!file)
-//     {
-//         Serial.println("Failed to open file for reading");
-//         return "{}";
-//     }
-
-//     String data;
-//     while (file.available())
-//     {
-//         data += (char)file.read();
-//     }
-//     file.close();
-//     return data;
-// }
-
 // Function to load data from SPIFFS and return a ModelData object
 void loadFromFile(ModelData &model) // note
 {
