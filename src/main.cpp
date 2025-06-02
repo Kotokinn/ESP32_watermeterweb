@@ -594,7 +594,7 @@ void setup()
 
                   //status checking 
                   page.replace("%SIM%", model.getPDN());
-                  page.replace("%PDN%", model.getPDN());
+                  page.replace("%SERIAL%", model.getPDN());
                   page.replace("%PDN%", model.getPDN());
 
                   request->send(200, "text/html; charset=utf-8", page); });
