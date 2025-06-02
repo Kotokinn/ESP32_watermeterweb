@@ -6,8 +6,10 @@
 
 #define CONFIGURATION_FILE "/config.json"
 
-const char *ssid = "ESP32_AP";
 
+
+
+const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
 DNSServer dnsServer;
 class ModelData
