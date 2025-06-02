@@ -173,6 +173,9 @@ bool loadFromFile(ModelData &model) // note
     doc["left"] = "10s";
     doc["right"] = "10s";
     doc["bottom"] = "10s";
+    doc["bottom"] = "10s";
+    doc["bottom"] = "10s";
+    doc["bottom"] = "10s";
 
     StaticJsonDocument<1024> doc;
     DeserializationError error = deserializeJson(doc, file);
