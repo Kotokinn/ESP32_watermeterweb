@@ -415,10 +415,10 @@ const char html_page[] PROGMEM = R"rawliteral(
                 // .then(data => {
                     // Update each status line
                     document.getElementById('disconnect-status').textContent = data;
-                })
-                .catch(err => {
-                    console.error('ESP request failed:', err);
-                });
+                // })
+                // .catch(err => {
+                    // console.error('ESP request failed:', err);
+                // });
         });
 
         //btn_check.addEventListener('click', () => {
