@@ -162,6 +162,7 @@ bool loadFromFile(ModelData &model) // note
     {
         Serial.println("Failed to open file for reading");
         Serial.println("\n using default setting");
+        
         StaticJsonDocument<1024> doc;
         doc["hostname"] = "http://14.224.158.56";
         doc["path"] = "/donghonuoc/upload";
@@ -177,7 +178,7 @@ bool loadFromFile(ModelData &model) // note
         doc["idDevice"] = "3";
         doc["PDN"] = "69";
 
-        
+
         return false;
     }
 
