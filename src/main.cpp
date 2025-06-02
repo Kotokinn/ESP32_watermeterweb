@@ -175,7 +175,7 @@ bool loadFromFile(ModelData &model) // note
     doc["right"] = "6";
     doc["bottom"] = "6";
     doc["tenKH"] = "Default";
-    doc["SDB"] = "10s";
+    doc["SDB"] = "Default";
     doc["idDevice"] = "10s";
     doc["PDN"] = "10s";
 
