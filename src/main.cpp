@@ -594,19 +594,19 @@ void setup()
               {
                   String page = FPSTR(html_page);
                   loadFromFile(model); // check configuration file 
-                  page.replace("%HOSTNAME%",model.getHostname() "http://14.224.158.56");
-                  page.replace("%PATH%", model.getPath():donghonuoc/upload");
-                  page.replace("%PORT%", model.getPort():8081");
-                  page.replace("%CHUKI%", model.getChuki():1");
-                  page.replace("%DOSANG%", model.getDoSang():6");
-                  page.replace("%TOP%", model.getTop():6");
-                  page.replace("%LEFT%", model.getLeft():6");
-                  page.replace("%RIGHT%", model.getRight():6");
-                  page.replace("%BOTTOM%", model.getBott():9");
-                  page.replace("%TENKH%", model.getTenKH():VDTAS");
-                  page.replace("%SDB%", model.getSDB():19216811");
-                  page.replace("%IDDEVICE%", model.getIDDevice():abh");
-                  page.replace("%PDN%", model.getPDN():wt is that");
+                  page.replace("%HOSTNAME%",model.getHostname() : "http://14.224.158.56");
+                  page.replace("%PATH%", model.getPath(): "/donghonuoc/upload");
+                  page.replace("%PORT%", model.getPort(): "8081");
+                  page.replace("%CHUKI%", model.getChuki(): "1");
+                  page.replace("%DOSANG%", model.getDoSang(): "6");
+                  page.replace("%TOP%", model.getTop(): "6");
+                  page.replace("%LEFT%", model.getLeft(): "6");
+                  page.replace("%RIGHT%", model.getRight(): "6");
+                  page.replace("%BOTTOM%", model.getBott(): "9");
+                  page.replace("%TENKH%", model.getTenKH(): "VDTAS");
+                  page.replace("%SDB%", model.getSDB(): "19216811");
+                  page.replace("%IDDEVICE%", model.getIDDevice(): "abh");
+                  page.replace("%PDN%", model.getPDN(): "wt is that");
                   request->send(200, "text/html; charset=utf-8", page); });
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
