@@ -164,7 +164,7 @@ bool loadFromFile(ModelData &model) // note
         return false;
     }
 
-    StaticJsonDocument<256> doc;
+    StaticJsonDocument<1024> doc;
     doc["hostname"] = "http://14.224.158.56";
     doc["path"] = "/donghonuoc/upload";
     doc["port"] = "8081";
