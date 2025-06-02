@@ -161,7 +161,8 @@ bool loadFromFile(ModelData &model) // note
     if (!file)
     {
         Serial.println("Failed to open file for reading");
-        
+        Serial.println("Failed to open file for reading");
+
         return false;
     }
 
