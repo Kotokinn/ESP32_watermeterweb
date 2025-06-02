@@ -420,7 +420,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 //.then(data => {
                     document.getElementById('net-status').textContent ="đăng kí mạng....";
                     document.getElementById('serial-status').textContent ="kết nối serial....";
-                    document.getElementById('image-status').textContent = "kiểm tra gửi ảnh...." + data.image;
+                    document.getElementById('image-status').textContent = "kiểm tra gửi ảnh....";
                     document.getElementById('disconnect-status').textContent ="Disconnect after "+ data.disconnect;
                 //})
                 //.catch(err => {
