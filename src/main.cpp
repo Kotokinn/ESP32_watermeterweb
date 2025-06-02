@@ -410,8 +410,8 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
-            document.getElementById('disconnect-status').textContent = "Disconnected";
             fetch('/disconnect')
+            document.getElementById('disconnect-status').textContent = "Disconnected";
                 // .then(res => res.json())
                 // .then(data => {
                     // Update each status line
