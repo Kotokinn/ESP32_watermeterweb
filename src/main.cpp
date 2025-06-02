@@ -596,7 +596,7 @@ void setup()
                   loadFromFile(model); // check configuration file 
                   page.replace("%HOSTNAME%",model.getHostname());
                   page.replace("%PATH%", model.getPath());
-                  page.replace("%PORT%", model.getPort(): "8081");
+                  page.replace("%PORT%", model.getPort());
                   page.replace("%CHUKI%", model.getChuki(): "1");
                   page.replace("%DOSANG%", model.getDoSang(): "6");
                   page.replace("%TOP%", model.getTop(): "6");
