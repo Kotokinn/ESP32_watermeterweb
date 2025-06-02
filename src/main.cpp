@@ -167,7 +167,7 @@ bool loadFromFile(ModelData &model) // note
     StaticJsonDocument<256> doc;
     doc["hostname"] = "OK";
     doc["path"] = "Connected";
-    doc["image"] = "Sent";
+    doc["chuki"] = "Sent";
     doc["disconnect"] = "10s";
 
     StaticJsonDocument<1024> doc;
