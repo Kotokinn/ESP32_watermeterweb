@@ -245,7 +245,6 @@ void loadFromFile(ModelData &model) // note
             model.setIDDevice(doc["idDevice"]);
         if (doc.containsKey("PDN"))
             model.setPDN(doc["PDN"]);
-        return true;
     }
 }
 
