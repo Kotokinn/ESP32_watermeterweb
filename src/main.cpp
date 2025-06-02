@@ -580,7 +580,6 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
         doc[keyName] = input.c_str();
 }
 
-void NetworkConnect_Task(void *parameter);
 void setup()
 {
     Serial.begin(115200);
@@ -651,11 +650,9 @@ void setup()
     request->send(200, "application/json", response); });
 
     server.begin();
-
 }
 
 void loop()
 {
-    dnsServer.processNextRequest(); 
+    dnsServer.processNextRequest();
 }
-
