@@ -309,17 +309,17 @@ const char html_page[] PROGMEM = R"rawliteral(
         }
 
         .btn-check {
-            background-color: #90ee90;
-            /* Light green */
-            color: #1e4620;
-            /* Dark green text for contrast */
-            padding: 10px;
+            background-color: #f28b82;
+            /* Light red */
+            color: #7b1b1b;
+            /* Dark red text for contrast */
+            padding: 10px 10px;
             font-size: 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s, box-shadow 0.2s, transform 0.1s;
-            box-shadow: 0 2px 5px rgba(144, 238, 144, 0.5);
+            box-shadow: 0 2px 5px rgba(242, 139, 130, 0.5);
             display: flex;
             justify-content: center;
         }
