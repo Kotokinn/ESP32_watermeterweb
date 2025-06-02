@@ -608,16 +608,16 @@ void setup()
         Serial.println("Received and Saved JSON: " + jsonString);
         request->send(200, "text/html","i was here"); });
 
-    server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
-              {
-    StaticJsonDocument<256> doc;
-    doc["net"] = "OK";
-    doc["serial"] = "Connected";
-    doc["image"] = "Sent";
-    doc["disconnect"] = "10s";
-    String response;
-    serializeJson(doc, response);
-    request->send(200, "application/json", response); });
+    // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
+    //           {
+    // StaticJsonDocument<256> doc;
+    // doc["net"] = "OK";
+    // doc["serial"] = "Connected";
+    // doc["image"] = "Sent";
+    // doc["disconnect"] = "10s";
+    // String response;
+    // serializeJson(doc, response);
+    // request->send(200, "application/json", response); });
 
     server.begin();
 
