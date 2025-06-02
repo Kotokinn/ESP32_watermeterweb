@@ -408,7 +408,10 @@ const char html_page[] PROGMEM = R"rawliteral(
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-        const btn_check = document.querySelector('.btn-check');
+                const btn_disconnect = document.querySelector('.btn-check');
+        btn_disconnect.addEventListener('click', () => {
+            window.location.href = "/disconnect";
+        });
         //btn_check.addEventListener('click', () => {
             document.getElementById('net-status').textContent = "đăng kí mạng....checkin";
             document.getElementById('serial-status').textContent = "kết nối serial....checkin";
