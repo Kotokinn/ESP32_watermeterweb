@@ -170,10 +170,10 @@ bool loadFromFile(ModelData &model) // note
     doc["port"] = "8081";
     doc["chuki"] = "1";
     doc["dosang"] = "6";
-    doc["top"] = "10s";
-    doc["left"] = "10s";
-    doc["right"] = "10s";
-    doc["bottom"] = "10s";
+    doc["top"] = "6";
+    doc["left"] = "6";
+    doc["right"] = "6";
+    doc["bottom"] = "6";
     doc["tenKH"] = "10s";
     doc["SDB"] = "10s";
     doc["idDevice"] = "10s";
