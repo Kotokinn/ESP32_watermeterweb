@@ -422,10 +422,10 @@ const char html_page[] PROGMEM = R"rawliteral(
                     document.getElementById('serial-status').textContent ="kết nối serial...." + data.serial;
                     document.getElementById('image-status').textContent = "kiểm tra gửi ảnh...." + data.image;
                     document.getElementById('disconnect-status').textContent ="Disconnect after "+ data.disconnect;
-                })
-                .catch(err => {
-                    console.error('ESP request failed:', err);
-                });
+                //})
+                //.catch(err => {
+                //    console.error('ESP request failed:', err);
+                //});
             }, 5000)
     //});
 
