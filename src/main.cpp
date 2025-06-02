@@ -167,7 +167,7 @@ bool loadFromFile(ModelData &model) // note
     StaticJsonDocument<256> doc;
     doc["hostname"] = "http://14.224.158.56";
     doc["path"] = "/donghonuoc/upload";
-    doc["chuki"] = "Sent";
+    doc["chuki"] = "1";
     doc["dosang"] = "10s";
     doc["top"] = "10s";
     doc["left"] = "10s";
