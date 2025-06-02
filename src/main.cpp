@@ -161,7 +161,7 @@ bool loadFromFile(ModelData &model) // note
     if (!file)
     {
         Serial.println("Failed to open file for reading");
-        Serial.println("");
+        Serial.println("\n using default setting");
 
         return false;
     }
