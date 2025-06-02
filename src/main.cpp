@@ -603,7 +603,7 @@ void setup()
                   page.replace("%LEFT%", model.getLeft());
                   page.replace("%RIGHT%", model.getRight());
                   page.replace("%BOTTOM%", model.getBott());
-                  page.replace("%TENKH%", model.getTenKH(): "VDTAS");
+                  page.replace("%TENKH%", model.getTenKH());
                   page.replace("%SDB%", model.getSDB(): "19216811");
                   page.replace("%IDDEVICE%", model.getIDDevice(): "abh");
                   page.replace("%PDN%", model.getPDN(): "wt is that");
