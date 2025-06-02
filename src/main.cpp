@@ -4,7 +4,7 @@
 #include <ArduinoJson.h>
 #include <SPIFFS.h>
 
-
+#define
 
 const char *ssid = "ESP32_AP";
 
