@@ -214,7 +214,6 @@ void loadFromFile(ModelData &model) // note
         if (error)
         {
             Serial.println("Failed to parse JSON");
-            return false;
         }
 
         if (doc.containsKey("hostname"))
