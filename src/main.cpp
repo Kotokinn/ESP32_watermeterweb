@@ -600,9 +600,9 @@ void setup()
                   page.replace("%CHUKI%", model.getChuki());
                   page.replace("%DOSANG%", model.getDoSang());
                   page.replace("%TOP%", model.getTop());
-                  page.replace("%LEFT%", model.getLeft(): "6");
-                  page.replace("%RIGHT%", model.getRight(): "6");
-                  page.replace("%BOTTOM%", model.getBott(): "9");
+                  page.replace("%LEFT%", model.getLeft());
+                  page.replace("%RIGHT%", model.getRight());
+                  page.replace("%BOTTOM%", model.getBott());
                   page.replace("%TENKH%", model.getTenKH(): "VDTAS");
                   page.replace("%SDB%", model.getSDB(): "19216811");
                   page.replace("%IDDEVICE%", model.getIDDevice(): "abh");
