@@ -659,12 +659,12 @@ void setup()
 
         Serial.println("Received and Saved JSON: " + jsonString);
         String referer = request->header("Referer");
-    if (referer.length() == 0) {
-        referer = "/"; // fallback redirect URL if no Referer header present
-    }
+        if (referer.length() == 0) {
+            referer = "/"; // fallback redirect URL if no Referer header present
+        }
 
-    // Send redirect response to the client
-    request->redirect(referer); });
+        // Send redirect response to the client
+        request->redirect(referer); });
 
     events.onConnect([](AsyncEventSourceClient *client)
                      {
