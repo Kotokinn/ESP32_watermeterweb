@@ -692,7 +692,7 @@ void Send_status_task(void *pvParameters)
     const size_t numMessages = sizeof(messages) / sizeof(messages[0]);
     size_t messageIndex = 0;
 
-    if(FLAGE)
+    if(FLAGE_RUN_CHECK == 1)
     for (;;)
     {
         unsigned long now = millis();
