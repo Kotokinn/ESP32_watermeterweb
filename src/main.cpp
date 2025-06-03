@@ -425,6 +425,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             console.log('Received:', event.data);
             document.getElementById('status').innerText = event.data;
         };
+        
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
@@ -673,7 +674,6 @@ void setup()
         NULL,       // Task handle
         0           // Core 0
     );
-   
 }
 // func
 
