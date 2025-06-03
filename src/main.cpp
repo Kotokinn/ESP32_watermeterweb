@@ -421,21 +421,21 @@ const char html_page[] PROGMEM = R"rawliteral(
     document.addEventListener("DOMContentLoaded", function () {
 
         if (!!window.EventSource) {
-        var source = new EventSource('/events');
-        source.addEventListener('open', function(e) {
-            console.log("Events Connected");
-        }, false);
-        source.addEventListener('error', function(e) {
-            if (e.target.readyState != EventSource.OPEN) {
-            console.log("Events Disconnected");
-            }
-        }, false);
-        source.addEventListener('message', function(e) {
-            console.log("message", e);
-        }, false);
-        source.addEventListener('heartbeat', function(e) {
-            console.log("heartbeat", e.data);
-        }, false);
+            var source = new EventSource('/events');
+            source.addEventListener('open', function(e) {
+                console.log("Events Connected");
+            }, false);
+            source.addEventListener('error', function(e) {
+                if (e.target.readyState != EventSource.OPEN) {
+                console.log("Events Disconnected");
+                }
+            }, false);
+            source.addEventListener('message', function(e) {
+                console.log("message", e);
+            }, false);
+            source.addEventListener('heartbeat', function(e) {
+                console.log("heartbeat", e.data);
+            }, false);
         }
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
