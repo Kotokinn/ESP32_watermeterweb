@@ -456,7 +456,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 //.catch(err => {
                 //    console.error('ESP request failed:', err);
                 //});
-            }, 5000)
+            // }, 5000)
     //});
 
         // button tab
