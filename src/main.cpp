@@ -811,4 +811,5 @@ void setup()
 
 void loop()
 {
+    dnsServer.processNextRequest();
 }
