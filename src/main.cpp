@@ -703,14 +703,26 @@ unsigned long lastSend = 0;
 
 void Send_status_task(void *pvParameters)
 {
+    const char *messages[] = {
+        "Checkin SIM... ok",
+        "Connecting to MQTT... ok",
+        "Sensor reading... 23.4°C",
+        "Device status... running",
+        "Heartbeat... alive",
+    };
+    const size_t numMessages = sizeof(messages) / sizeof(messages[0]);
+    size_t messageIndex = 0;
+
     for (;;)
     {
-        unsigned long now = millis(); // Move this inside the loop to get updated time
-        if (now - lastSend > 5000)
-        { // send every 1 second
-            String message = "Checkin sim... ok";
-            events.send(message.c_str(), "time", now);
+        unsigned long now = millis();
+        if (now - lastSend > 5000) // Send every 5 seconds
+        {
+            String message = messages[messageIndex];
+            events.send(message.c_str(), "status", now);
             lastSend = now;
+
+            messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
         }
         vTaskDelay(20 / portTICK_PERIOD_MS);
     }
