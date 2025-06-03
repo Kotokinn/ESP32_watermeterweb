@@ -11,6 +11,7 @@
 
 const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
+AsyncEventSource events("/events");
 DNSServer dnsServer;
 class ModelData
 {
