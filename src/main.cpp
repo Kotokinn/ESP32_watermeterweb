@@ -9,10 +9,7 @@
 
 #define CONFIGURATION_FILE "/config.json"
 
-char status[5];
-char message[30];
-int year, month, day, hour, minute, second;
-char end_res[5];
+
 
 const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
