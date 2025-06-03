@@ -718,6 +718,10 @@ void loop()
 }
 // task
 
+void Send_status_task(){
+    
+}
+
 void Web_task(void *pvParameters)
 {
 
