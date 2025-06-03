@@ -706,7 +706,7 @@ void Send_status_task(void *pvParameters)
     const char *messages[] = {
         "Checkin SIM... ok",
         "Checkin send image... ok",
-        "Sensor reading... 23.4°C",
+        "",
         "Device status... running",
         "Heartbeat... alive",
     };
