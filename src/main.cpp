@@ -444,7 +444,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             document.getElementById('serial-status').textContent = "kết nối serial....checkin";
             document.getElementById('image-status').textContent = "kiểm tra gửi ảnh....checkin";
             // document.getElementById('disconnect-status').textContent = "bắt đầu ngắt kết nối trong 69 giây.";
-            // setTimeout(() => {
+            setTimeout(() => {
                 //fetch("/status") // you need to define this endpoint on ESP32
                 //.then(res => res.json())
                 //.then(data => {
