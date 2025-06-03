@@ -705,8 +705,8 @@ void Send_status_task(void *pvParameters)
 {
     const char *messages[] = {
         "Checkin SIM... ok",
+        "Checkin server... ok",
         "Checkin send image... ok",
-        "Checkin server... ",
     };
     const size_t numMessages = sizeof(messages) / sizeof(messages[0]);
     size_t messageIndex = 0;
