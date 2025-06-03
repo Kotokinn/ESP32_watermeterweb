@@ -689,6 +689,7 @@ void setup()
     // serializeJson(doc, response);
     // request->send(200, "application/json", response); });
 
+    server.addHandler(&events);
     server.begin();
 
     xTaskCreatePinnedToCore(
