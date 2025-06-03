@@ -423,7 +423,7 @@ const char html_page[] PROGMEM = R"rawliteral(
         let ws = new WebSocket(`ws://${window.location.hostname}/ws`);
         ws.onmessage = function(event) {
             console.log('Received:', event.data);
-            document.getElementById('status').innerText = event.data;
+            document.getElementById('net-status').innerText = event.data;
         };
         
         const btn_disconnect = document.querySelector('.btn-check');
