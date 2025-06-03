@@ -421,7 +421,10 @@ const char html_page[] PROGMEM = R"rawliteral(
     document.addEventListener("DOMContentLoaded", function () {
 
         let ws = new WebSocket(`ws://${window.location.hostname}/ws`);
-
+        ws.onmessage = function(event) {
+    console.log('Received:', event.data);
+    document.getElementById('status').innerText = event.data;
+  };
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
