@@ -663,8 +663,7 @@ void setup()
         if (client->lastId()) {
         Serial.printf("SSE Client reconnected! Last message ID that it gat is: %" PRIu32 "\n", client->lastId());
         }
-    client->send("hello!", NULL, millis(), 1000);
- });
+    client->send("hello!", NULL, millis(), 1000); });
 
     // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
     //           {
@@ -706,18 +705,21 @@ void loop()
 }
 // task
 unsigned long lastSend = 0;
+
 void Send_status_task(void *pvParameters)
 {
-    unsigned long now = millis();
     for (;;)
     {
+        unsigned long now = millis(); // Move this inside the loop to get updated time
+
         if (now - lastSend > 1000)
         { // send every 1 second
             String message = "Current time: " + String(now / 1000) + " seconds";
-            events.send(message.c_str());
+            events.send(message.c_str(), "time", now);
             lastSend = now;
         }
-        vTaskDelay(10 / portTICK_PERIOD_MS); // delay nhỏ
+
+        vTaskDelay(10 / portTICK_PERIOD_MS); // small delay to yield CPU
     }
 }
 
