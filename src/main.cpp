@@ -720,7 +720,7 @@ void loop()
 
 void Send_status_task(void *pvParameters)
 {
-    
+    for()
 }
 
 void Web_task(void *pvParameters)
