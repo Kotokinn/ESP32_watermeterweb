@@ -690,20 +690,18 @@ void Send_status_task(void *pvParameters)
     size_t messageIndex = 0;
     for (;;)
     {
-        if(FLAGE_RUN_CHECK == 1){
+        if (FLAGE_RUN_CHECK == 1)
+        {
             unsigned long now = millis();
             if (now - lastSend > 5000) // Send every 5 seconds
             {
                 String message = messages[messageIndex];
                 events.send(message.c_str(), "status", now);
                 lastSend = now;
-    
+
                 messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
             }
             vTaskDelay(20 / portTICK_PERIOD_MS);
-
-        }else{
-            return;
         }
     }
 }
