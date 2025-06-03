@@ -691,7 +691,7 @@ void Send_status_task(void *pvParameters)
         if (now - lastSend > 5000) // Send every 5 seconds
         {
             String message = messages[messageIndex];
-            events.send(message.c_str(), "status", now);
+            events.send(message.c_str(), "status-check", now);
             lastSend = now;
 
             messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
