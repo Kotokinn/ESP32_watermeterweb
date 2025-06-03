@@ -688,7 +688,8 @@ void Send_status_task(void *pvParameters)
     };
     const size_t numMessages = sizeof(messages) / sizeof(messages[0]);
     size_t messageIndex = 0;
-    if(FLAGE_RUN_CHECK == 1){
+    if (FLAGE_RUN_CHECK == 1)
+    {
         for (;;)
         {
             unsigned long now = millis();
@@ -697,12 +698,14 @@ void Send_status_task(void *pvParameters)
                 String message = messages[messageIndex];
                 events.send(message.c_str(), "status", now);
                 lastSend = now;
-    
+
                 messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
             }
             vTaskDelay(20 / portTICK_PERIOD_MS);
         }
-    }else{
+    }
+    else
+    {
         return;
     }
 }
