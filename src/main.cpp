@@ -423,7 +423,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         var source = new EventSource('/events');
         source.onmessage = function(event) {
-            document.getElementById('data').innerHTML += event.data + '<br>';
+            document.getElementById('net-status').innerHTML += event.data + '<br>';
         };
 
         const btn_disconnect = document.querySelector('.btn-check');
