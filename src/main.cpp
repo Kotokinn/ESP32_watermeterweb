@@ -702,7 +702,7 @@ void setup()
         0           // Core 0
     );
     xTaskCreatePinnedToCore(
-        Web_task,   // Hàm loop chạy trên Core 0
+        Send_st,   // Hàm loop chạy trên Core 0
         "Web_task", // Tên task
         4096,       // Stack size
         NULL,       // Tham số
