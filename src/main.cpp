@@ -408,7 +408,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         <form class="tab-form">
             <div id="status-output">
-                <p id="status"></p>
+                <p id="status-check"></p>
             </div>
             <div class="misterious-space"></div>
             <div class="btn-check">Disconnect web</div>
