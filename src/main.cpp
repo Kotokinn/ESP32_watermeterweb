@@ -583,7 +583,7 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
 
 // declare void
 void Web_task(void *pvParameters);
-void TachMessage(char response[]);
+void Send_status_task(void *pvParameters)
 
 void setup()
 {
