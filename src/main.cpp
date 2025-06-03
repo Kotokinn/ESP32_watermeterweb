@@ -692,3 +692,123 @@
 //     }
 // }
 
+#include <Arduino.h>
+#include <ESPAsyncWebServer.h>
+
+const char html_page[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Example</title></head>
+<body>
+Hostname: %HOSTNAME%<br>
+Path: %PATH%<br>
+Port: %PORT%<br>
+</body>
+</html>
+)rawliteral";
+
+AsyncWebServer server(80);
+
+struct StreamData
+{
+    const char *data; // pointer to PROGMEM HTML string
+    size_t length;    // total length of HTML string
+    size_t pos;       // current read position
+    String buffer;    // buffer for chunk with replaced placeholders
+    bool done;
+};
+
+// A simple function to get placeholder replacement values
+String getPlaceholderValue(const String &key)
+{
+    if (key == "HOSTNAME")
+        return "myesp.local";
+    if (key == "PATH")
+        return "/api/data";
+    if (key == "PORT")
+        return "8080";
+    return "";
+}
+
+// Fill buffer with a chunk of data with placeholders replaced
+bool fillBuffer(StreamData &sd, size_t chunkSize)
+{
+    sd.buffer = ""; // clear buffer
+
+    while (sd.pos < sd.length && sd.buffer.length() < chunkSize)
+    {
+        // Read next char from PROGMEM string
+        char c = pgm_read_byte_near(sd.data + sd.pos);
+        sd.pos++;
+
+        // Check if this is the start of a placeholder: '%'
+        if (c == '%')
+        {
+            // Read until next '%' for placeholder key
+            String key = "";
+            while (sd.pos < sd.length)
+            {
+                char next_c = pgm_read_byte_near(sd.data + sd.pos);
+                sd.pos++;
+                if (next_c == '%')
+                    break;
+                key += next_c;
+            }
+            // Replace placeholder with value
+            sd.buffer += getPlaceholderValue(key);
+        }
+        else
+        {
+            // Just normal character
+            sd.buffer += c;
+        }
+
+        // Stop if buffer is big enough
+        if (sd.buffer.length() >= chunkSize)
+            break;
+    }
+
+    // Return false if finished streaming
+    if (sd.pos >= sd.length && sd.buffer.length() == 0)
+    {
+        sd.done = true;
+        return false;
+    }
+    return true;
+}
+
+void setup()
+{
+    Serial.begin(115200);
+
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP("esp-captive");
+
+    size_t html_len = strlen_P(html_page);
+
+    server.on("/", HTTP_GET, [html_len](AsyncWebServerRequest *request)
+              {
+    // Allocate StreamData for this request
+    StreamData *sd = new StreamData{html_page, html_len, 0, "", false};
+
+    // Start chunked response
+    AsyncWebServerResponse *response = request->beginChunkedResponse("text/html",
+      [sd](uint8_t *buffer, size_t maxLen, size_t index) -> size_t {
+        if (sd->done) {
+          delete sd;  // cleanup memory
+          return 0;   // no more data
+        }
+        bool hasMore = fillBuffer(*sd, maxLen);
+        size_t len = sd->buffer.length();
+        memcpy(buffer, sd->buffer.c_str(), len);
+        return len;
+      });
+
+    request->send(response); });
+
+    server.begin();
+}
+
+void loop()
+{
+}
