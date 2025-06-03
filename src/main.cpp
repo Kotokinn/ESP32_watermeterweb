@@ -8,7 +8,7 @@
 #include <freertos/semphr.h>
 
 #define CONFIGURATION_FILE "/config.json"
-
+#
 
 const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
