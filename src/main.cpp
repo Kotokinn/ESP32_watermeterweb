@@ -728,6 +728,7 @@ void Send_status_task(void *pvParameters)
             events.send(message.c_str());
             lastSend = now;
         }
+        vTaskDelay(10 / portTICK_PERIOD_MS); // delay nhỏ
     }
 }
 
