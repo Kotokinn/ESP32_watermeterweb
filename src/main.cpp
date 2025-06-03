@@ -594,6 +594,8 @@ void setup()
 
                   request->send(200, "text/html; charset=utf-8", page); });
 
+                  if()
+
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
               {
         StaticJsonDocument<512> doc;
