@@ -422,9 +422,9 @@ const char html_page[] PROGMEM = R"rawliteral(
     document.addEventListener("DOMContentLoaded", function () {
 
         var source = new EventSource('/events');
-    source.onmessage = function(event) {
-      document.getElementById('data').innerHTML += event.data + '<br>';
-    };
+        source.onmessage = function(event) {
+        document.getElementById('data').innerHTML += event.data + '<br>';
+        };
 
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
