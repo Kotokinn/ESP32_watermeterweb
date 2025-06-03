@@ -701,11 +701,6 @@ void Send_status_task(void *pvParameters)
             }
             vTaskDelay(20 / portTICK_PERIOD_MS);
         }
-    }
-    else
-    {
-        return;
-    }
 }
 
 void Web_task(void *pvParameters)
