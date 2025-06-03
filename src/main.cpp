@@ -633,7 +633,6 @@ void setup()
               {
                   Serial.printf("Disconneting server");
         FLAGE_RUN_CHECK = 1;
-
                   server.reset();
                   WiFi.disconnect(true);
                   server.end(); });
