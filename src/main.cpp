@@ -423,7 +423,18 @@ const char html_page[] PROGMEM = R"rawliteral(
         source.onmessage = function(event) {
             document.getElementById('status-check').innerHTML += event.data + '<br>';
         };
-         source.addEventListener('time', function(e) {
+         source.addEventListener(' if (FLAGE_RUN_CHECK == 1)
+    {
+        xTaskCreatePinnedToCore(
+            Send_status_task,   // Hàm loop chạy trên Core 0
+            "Send_status_task", // Tên task
+            4096,               // Stack size
+            NULL,               // Tham số
+            1,                  // Priority
+            NULL,               // Task handle
+            0                   // Core 0
+        );
+    }', function(e) {
             document.getElementById('status-check').innerHTML += event.data + '<br>';
         }, false);
 
