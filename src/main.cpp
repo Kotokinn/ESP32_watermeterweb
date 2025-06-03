@@ -408,7 +408,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
         <form class="tab-form">
             <div id="status-output">
-                <p id="net-status">đăng kí mạng....%CHECK_SIM%</p>
+                <p id="net-status"></p>
                 
             </div>
             <div class="misterious-space"></div>
