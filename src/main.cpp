@@ -685,7 +685,7 @@ void setup()
                       "25/06/03,12:11:44\r\n"
                       "OK\r\n";
 
-    TachMessage(response);
+   
 }
 // func
 void TachMessage(char response[])
