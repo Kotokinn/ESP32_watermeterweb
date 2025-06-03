@@ -9,6 +9,11 @@
 
 #define CONFIGURATION_FILE "/config.json"
 
+char status[5];
+char message[30];
+int year, month, day, hour, minute, second;
+char end_res[5];
+
 const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
 DNSServer dnsServer;
@@ -111,7 +116,6 @@ public:
     const char *getRight() const { return right; }
     const char *getBott() const { return bott; }
 };
-
 ModelData model;
 
 void saveToFile(const String &jsonString)
@@ -134,57 +138,67 @@ void saveToFile(const String &jsonString)
     Serial.println("Data saved successfully!");
 }
 
+void loadDefaultConfig()
+{
+    StaticJsonDocument<1024> doc;
+    doc["hostname"] = "http://14.224.158.56";
+    doc["path"] = "/donghonuoc/upload";
+    doc["port"] = "8081";
+    doc["chuki"] = "1";
+    doc["dosang"] = "6";
+    doc["top"] = "6";
+    doc["left"] = "6";
+    doc["right"] = "6";
+    doc["bottom"] = "6";
+    doc["tenKH"] = "Default";
+    doc["SDB"] = "000000";
+    doc["idDevice"] = "3";
+    doc["PDN"] = "69";
+
+    if (doc.containsKey("hostname"))
+        model.setHostname(doc["hostname"]);
+    if (doc.containsKey("path"))
+        model.setPath(doc["path"].as<String>());
+    if (doc.containsKey("port"))
+        model.setPort(doc["port"]);
+    if (doc.containsKey("chuki"))
+        model.setChuki(doc["chuki"]);
+    if (doc.containsKey("dosang"))
+        model.setDoSang(doc["dosang"]);
+    if (doc.containsKey("top"))
+        model.setTop(doc["top"]);
+    if (doc.containsKey("left"))
+        model.setLeft(doc["left"]);
+    if (doc.containsKey("right"))
+        model.setRight(doc["right"]);
+    if (doc.containsKey("bottom"))
+        model.setBott(doc["bottom"]);
+    if (doc.containsKey("tenKH"))
+        model.setTenKH(doc["tenKH"]);
+    if (doc.containsKey("SDB"))
+        model.setSDB(doc["SDB"]);
+    if (doc.containsKey("idDevice"))
+        model.setIDDevice(doc["idDevice"]);
+    if (doc.containsKey("PDN"))
+        model.setPDN(doc["PDN"]);
+}
 // Function to load data from SPIFFS and return a ModelData object
 void loadFromFile(ModelData &model) // note
 {
 
+    if (!SPIFFS.begin())
+    {
+        Serial.println("Failed to mount SPIFFS");
+        Serial.println("\nusing default setting");
+        loadDefaultConfig();
+    }
+
     File file = SPIFFS.open(CONFIGURATION_FILE, "r");
-    if (!SPIFFS.begin() && !file) // file config not found using default setting
+    if (!file) // file config not found using default setting
     {
         Serial.println("Failed to open file for reading");
-        Serial.println("\n using default setting");
-
-        StaticJsonDocument<1024> doc;
-        doc["hostname"] = "http://14.224.158.56";
-        doc["path"] = "/donghonuoc/upload";
-        doc["port"] = "8081";
-        doc["chuki"] = "1";
-        doc["dosang"] = "6";
-        doc["top"] = "6";
-        doc["left"] = "6";
-        doc["right"] = "6";
-        doc["bottom"] = "6";
-        doc["tenKH"] = "Default";
-        doc["SDB"] = "000000";
-        doc["idDevice"] = "3";
-        doc["PDN"] = "69";
-
-        if (doc.containsKey("hostname"))
-            model.setHostname(doc["hostname"]);
-        if (doc.containsKey("path"))
-            model.setPath(doc["path"].as<String>());
-        if (doc.containsKey("port"))
-            model.setPort(doc["port"]);
-        if (doc.containsKey("chuki"))
-            model.setChuki(doc["chuki"]);
-        if (doc.containsKey("dosang"))
-            model.setDoSang(doc["dosang"]);
-        if (doc.containsKey("top"))
-            model.setTop(doc["top"]);
-        if (doc.containsKey("left"))
-            model.setLeft(doc["left"]);
-        if (doc.containsKey("right"))
-            model.setRight(doc["right"]);
-        if (doc.containsKey("bottom"))
-            model.setBott(doc["bottom"]);
-        if (doc.containsKey("tenKH"))
-            model.setTenKH(doc["tenKH"]);
-        if (doc.containsKey("SDB"))
-            model.setSDB(doc["SDB"]);
-        if (doc.containsKey("idDevice"))
-            model.setIDDevice(doc["idDevice"]);
-        if (doc.containsKey("PDN"))
-            model.setPDN(doc["PDN"]);
+        Serial.println("\nusing default setting");
+        loadDefaultConfig();
     }
     else
     {
@@ -193,37 +207,40 @@ void loadFromFile(ModelData &model) // note
         if (error)
         {
             Serial.println("Failed to parse JSON");
+            Serial.println("\nusing default setting");
+            loadDefaultConfig();
         }
-
-        if (doc.containsKey("hostname"))
+        else
         {
-            model.setHostname(doc["hostname"]);
+            if (doc.containsKey("hostname"))
+                model.setHostname(doc["hostname"]);
+            if (doc.containsKey("path"))
+                model.setPath(doc["path"].as<String>());
+            if (doc.containsKey("port"))
+                model.setPort(doc["port"]);
+            if (doc.containsKey("chuki"))
+                model.setChuki(doc["chuki"]);
+            if (doc.containsKey("dosang"))
+                model.setDoSang(doc["dosang"]);
+            if (doc.containsKey("top"))
+                model.setTop(doc["top"]);
+            if (doc.containsKey("left"))
+                model.setLeft(doc["left"]);
+            if (doc.containsKey("right"))
+                model.setRight(doc["right"]);
+            if (doc.containsKey("bottom"))
+                model.setBott(doc["bottom"]);
+            if (doc.containsKey("tenKH"))
+                model.setTenKH(doc["tenKH"]);
+            if (doc.containsKey("SDB"))
+                model.setSDB(doc["SDB"]);
+            if (doc.containsKey("idDevice"))
+                model.setIDDevice(doc["idDevice"]);
+            if (doc.containsKey("PDN"))
+                model.setPDN(doc["PDN"]);
         }
-        if (doc.containsKey("path"))
-            model.setPath(doc["path"].as<String>());
-        if (doc.containsKey("port"))
-            model.setPort(doc["port"]);
-        if (doc.containsKey("chuki"))
-            model.setChuki(doc["chuki"]);
-        if (doc.containsKey("dosang"))
-            model.setDoSang(doc["dosang"]);
-        if (doc.containsKey("top"))
-            model.setTop(doc["top"]);
-        if (doc.containsKey("left"))
-            model.setLeft(doc["left"]);
-        if (doc.containsKey("right"))
-            model.setRight(doc["right"]);
-        if (doc.containsKey("bottom"))
-            model.setBott(doc["bottom"]);
-        if (doc.containsKey("tenKH"))
-            model.setTenKH(doc["tenKH"]);
-        if (doc.containsKey("SDB"))
-            model.setSDB(doc["SDB"]);
-        if (doc.containsKey("idDevice"))
-            model.setIDDevice(doc["idDevice"]);
-        if (doc.containsKey("PDN"))
-            model.setPDN(doc["PDN"]);
     }
+    file.close(); // close file after reading
 }
 
 const char html_page[] PROGMEM = R"rawliteral(
@@ -563,7 +580,10 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
         doc[keyName] = input.c_str();
 }
 
-void Web_task(void *pvParameters); // declare void
+// declare void
+void Web_task(void *pvParameters);
+void TachMessage(char response[]);
+
 void setup()
 {
     Serial.begin(115200);
@@ -653,11 +673,116 @@ void setup()
         NULL,       // Task handle
         0           // Core 0
     );
+    char response[] = "HTTP/1.1 200 \r\n"
+                      "Vary: Origin\r\n"
+                      "Vary: Access-Control-Request-Method\r\n"
+                      "Vary: Access-Control-Request-Headers\r\n"
+                      "Content-Type: text/plain;charset=UTF-8\r\n"
+                      "Content-Length: 39\r\n"
+                      "Date: Tue, 03 Jun 2025 04:11:45 GMT\r\n"
+                      "\r\n"
+                      "1 upload success \r\n"
+                      "25/06/03,12:11:44\r\n"
+                      "OK\r\n";
+
+    TachMessage(response);
+}
+// func
+void TachMessage(char response[])
+{
+    char number[5] = {0};
+    char text[100] = {0};
+    int i = 0, j = 0;
+
+    // char response[] = "HTTP/1.1 200 \r\n"
+    //                   "Vary: Origin\r\n"
+    //                   "Vary: Access-Control-Request-Method\r\n"
+    //                   "Vary: Access-Control-Request-Headers\r\n"
+    //                   "Content-Type: text/plain;charset=UTF-8\r\n"
+    //                   "Content-Length: 39\r\n"
+    //                   "Date: Tue, 03 Jun 2025 04:11:45 GMT\r\n"
+    //                   "\r\n"
+    //                   "1 upload success \r\n"
+    //                   "25/06/03,12:11:44\r\n"
+    //                   "OK\r\n";
+
+    // Tìm phần body
+    char *body = strstr(response, "\r\n\r\n");
+    if (body != NULL)
+    {
+        body += 4; // bỏ qua "\r\n\r\n"
+        // printf("Body:\n%s\n", body);
+    }
+    else
+    {
+        printf("Không tìm thấy phần body\n");
+    }
+
+    char line1[30] = {0}; // 1 upload success
+    char line2[20] = {0}; // 25/06/03,12:11:44
+    // end_res // OK
+
+    char *token = strtok(body, "\r\n");
+    int lineCount = 0;
+
+    while (token != NULL && lineCount < 3)
+    {
+        switch (lineCount)
+        {
+        case 0: // line 1
+            strncpy(line1, token, sizeof(line1) - 1);
+            while (line1[i] && isdigit(line1[i]))
+            {
+                status[j++] = line1[i++];
+            }
+            status[j] = '\0';
+            // Bỏ qua khoảng trắng
+            while (line1[i] && isspace(line1[i]))
+            {
+                i++;
+            }
+            strncpy(message, &line1[i], sizeof(message) - 1);
+            message[sizeof(message) - 1] = 0;
+            break;
+        case 1:
+            strncpy(line2, token, sizeof(line2) - 1);
+            sscanf(line2, "%d/%d/%d,%d:%d:%d", &year, &month, &day, &hour, &minute, &second);
+            break;
+        case 2:
+            strncpy(end_res, token, sizeof(end_res) - 1);
+            break;
+        default:
+            Serial.printf("unknow incumin data");
+            break;
+        }
+        lineCount++;
+        token = strtok(NULL, "\r\n");
+    }
+
+    // Serial.print(status);
+    // Serial.print("\n");
+    // Serial.print(message);
+    // Serial.print("\n");
+    // Serial.print(year);
+    // Serial.print("\n");
+    // Serial.print(month);
+    // Serial.print("\n");
+    // Serial.print(day);
+    // Serial.print("\n");
+    // Serial.print(hour);
+    // Serial.print("\n");
+    // Serial.print(minute);
+    // Serial.print("\n");
+    // Serial.print(second);
+    // Serial.print("\n");
+    // Serial.print(end_res);
+    // Serial.print("\n");
 }
 
 void loop()
 {
 }
+// task
 
 void Web_task(void *pvParameters)
 {
