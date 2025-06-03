@@ -704,11 +704,11 @@ void setup()
     xTaskCreatePinnedToCore(
         Send_status_task,   // Hàm loop chạy trên Core 0
         "Send_status_task", // Tên task
-        4096,       // Stack size
-        NULL,       // Tham số
-        1,          // Priority
-        NULL,       // Task handle
-        0           // Core 0
+        4096,               // Stack size
+        NULL,               // Tham số
+        1,                  // Priority
+        NULL,               // Task handle
+        0                   // Core 0
     );
 }
 // func
@@ -718,8 +718,8 @@ void loop()
 }
 // task
 
-void Send_status_task(){
-    
+void Send_status_task(void *pvParameters)
+{
 }
 
 void Web_task(void *pvParameters)
