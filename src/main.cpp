@@ -720,8 +720,14 @@ void loop()
 
 void Send_status_task(void *pvParameters)
 {
-    for(;;){
-        
+    for (;;)
+    {
+        if (now - lastSend > 1000)
+        { // send every 1 second
+            String message = "Current time: " + String(now / 1000) + " seconds";
+            events.send(message.c_str());
+            lastSend = now;
+        }
     }
 }
 
