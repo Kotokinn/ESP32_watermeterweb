@@ -708,7 +708,7 @@ Port: %PORT%<br>
 )rawliteral";
 
 AsyncWebServer server(80);
-
+DNSServer dnsServer;
 struct StreamData
 {
     const char *data; // pointer to PROGMEM HTML string
