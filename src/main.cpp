@@ -662,8 +662,7 @@ void setup()
                   Serial.printf("Disconneting server");
                   server.reset();
                   WiFi.disconnect(true);
-                  server.end();
-              });
+                  server.end(); });
 
     // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
     //           {
