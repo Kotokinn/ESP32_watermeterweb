@@ -420,9 +420,9 @@ const char html_page[] PROGMEM = R"rawliteral(
     document.addEventListener("DOMContentLoaded", function () {
 
         var source = new EventSource('/events');
-        // source.onmessage = function(event) {
-        //     document.getElementById('status-check').innerHTML += event.data + '<br>';
-        // };
+        source.onmessage = function(event) {
+            document.getElementById('status-check').innerHTML += event.data + '<br>';
+        };
          source.addEventListener('time', function(e) {
             document.getElementById('status-check').innerHTML += event.data + '<br>';
         }, false);
