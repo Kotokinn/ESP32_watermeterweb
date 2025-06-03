@@ -350,7 +350,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             <button class="tab-button">Get status</button>
         </div>
 
-        <form class="tab-form form-active" action="/data" method="post">
+        <form class="tab-form form-active" action="/" method="post">
             <h3>Cấu hình server</h3>
             <div class="Container">
                 <div class="BoxInput"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname"
