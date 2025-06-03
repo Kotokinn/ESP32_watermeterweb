@@ -573,7 +573,7 @@ void setup()
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               {
                   String page = FPSTR(html_page);
-                  page.replace("%HOSTNAME%",model.getHostname());
+                  page.replace("%HOSTNAME%", model.getHostname());
                   page.replace("%PATH%", model.getPath());
                   page.replace("%PORT%", model.getPort());
                   page.replace("%CHUKI%", model.getChuki());
@@ -587,14 +587,12 @@ void setup()
                   page.replace("%IDDEVICE%", model.getIDDevice());
                   page.replace("%PDN%", model.getPDN());
 
-                  //status checking
+                  // status checking
                   page.replace("%SIM%", "OK");
                   page.replace("%SERIAL%", "OK");
                   page.replace("%IMAGE%", "NO OK");
 
-                  request->send(200, "text/html; charset=utf-8", page);
-                
-                  });
+                  request->send(200, "text/html; charset=utf-8", page); });
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
               {
@@ -662,6 +660,18 @@ void setup()
         NULL,       // Task handle
         0           // Core 0
     );
+    if (FLAGE_RUN_CHECK == 1)
+    {
+        xTaskCreatePinnedToCore(
+            Send_status_task,   // Hàm loop chạy trên Core 0
+            "Send_status_task", // Tên task
+            4096,               // Stack size
+            NULL,               // Tham số
+            1,                  // Priority
+            NULL,               // Task handle
+            0                   // Core 0
+        );
+    }
 }
 // func
 
