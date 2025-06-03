@@ -690,6 +690,7 @@ void Send_status_task(void *pvParameters)
     size_t messageIndex = 0;
     for (;;)
     {
+        if(FLAGE_RUN_CHECK == 1)
         unsigned long now = millis();
         if (now - lastSend > 5000) // Send every 5 seconds
         {
