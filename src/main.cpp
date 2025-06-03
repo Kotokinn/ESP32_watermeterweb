@@ -350,7 +350,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             <button class="tab-button">Get status</button>
         </div>
 
-        <form class="tab-form form-active" action="/" method="post">
+        <form class="tab-form form-active" action="/data" method="post">
             <h3>Cấu hình server</h3>
             <div class="Container">
                 <div class="BoxInput"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname"
@@ -633,7 +633,7 @@ void setup()
 
                   request->send(200, "text/html; charset=utf-8", page); });
 
-    server.on("/", HTTP_POST, [](AsyncWebServerRequest *request)
+    server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
               {
         StaticJsonDocument<512> doc;
 
