@@ -1,4 +1,8 @@
- 
+ char status[5];
+char message[30];
+int year, month, day, hour, minute, second;
+char end_res[5];
+
  TachMessage(response);
 
  void TachMessage(char response[])
