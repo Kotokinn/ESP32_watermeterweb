@@ -661,6 +661,8 @@ void setup()
               { Serial.printf("Disconneting server");
                 server.reset();
                 WiFi.disconnect(true);
+                server.reset();
+
              });
 
     // events.onConnect([](AsyncEventSourceClient *client)
