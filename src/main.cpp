@@ -663,7 +663,8 @@ void setup()
         if (client->lastId()) {
         Serial.printf("SSE Client reconnected! Last message ID that it gat is: %" PRIu32 "\n", client->lastId());
         }
-    client->send("hello!", NULL, millis(), 1000); });
+    client->send("hello!", NULL, millis(), 1000);
+ });
 
     // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
     //           {
