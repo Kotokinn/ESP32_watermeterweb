@@ -427,7 +427,6 @@ const char html_page[] PROGMEM = R"rawliteral(
         };
 
          source.addEventListener('time', function(e) {
-            console.log("message", e.data);
             document.getElementById('net-status').innerHTML += event.data + '<br>';
         }, false);
 
