@@ -428,7 +428,7 @@ const char html_page[] PROGMEM = R"rawliteral(
 
          source.addEventListener('message', function(e) {
             console.log("message", e.data);
-             document.getElementById('net-status').innerHTML += event.data + '<br>';
+            document.getElementById('net-status').innerHTML += event.data + '<br>';
         }, false);
 
         const btn_disconnect = document.querySelector('.btn-check');
