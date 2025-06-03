@@ -437,6 +437,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 console.log("heartbeat", e.data);
             }, false);
         }
+            
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
