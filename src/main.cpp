@@ -708,7 +708,7 @@ void Send_status_task(void *pvParameters)
         unsigned long now = millis(); // Move this inside the loop to get updated time
         if (now - lastSend > 5000)
         { // send every 1 second
-            String message = "Current time: " + String(now / 1000) + " seconds";
+            String message = "Check " + String(now / 1000) + " seconds";
             events.send(message.c_str(), "time", now);
             lastSend = now;
         }
