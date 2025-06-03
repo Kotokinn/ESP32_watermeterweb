@@ -16,8 +16,8 @@ char end_res[5];
                       "25/06/03,12:11:44\r\n"
                       "OK\r\n";
 
-                      
- TachMessage(response);
+
+TachMessage(response);
 
  void TachMessage(char response[])
 {
