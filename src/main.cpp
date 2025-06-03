@@ -430,7 +430,6 @@ const char html_page[] PROGMEM = R"rawliteral(
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
             document.getElementById('disconnect-status').textContent = "Disconnected";
-               
         });
 
         // button tab
