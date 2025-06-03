@@ -701,8 +701,8 @@ void Send_status_task(void *pvParameters)
 
                 messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
             }
-            vTaskDelay(20 / portTICK_PERIOD_MS);
         }
+        vTaskDelay(20 / portTICK_PERIOD_MS);
     }
 }
 
