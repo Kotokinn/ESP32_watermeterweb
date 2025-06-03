@@ -426,6 +426,10 @@ const char html_page[] PROGMEM = R"rawliteral(
             document.getElementById('net-status').innerHTML += event.data + '<br>';
         };
 
+         source.addEventListener('message', function(e) {
+  console.log("message", e.data);
+ }, false);
+ 
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
