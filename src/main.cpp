@@ -658,7 +658,7 @@ void setup()
         0           // Core 0
     );
 
-    if(FLAGE)
+    if(FLAGE_RUN)
     
 }
 // func
