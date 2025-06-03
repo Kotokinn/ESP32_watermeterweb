@@ -658,12 +658,12 @@ void setup()
         request->redirect(referer); });
 
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
-              { Serial.printf("Disconneting server");
-                server.reset();
-                WiFi.disconnect(true);
-                server.reset();
-
-             });
+              {
+                  Serial.printf("Disconneting server");
+                  server.reset();
+                  WiFi.disconnect(true);
+                  server.end();
+              });
 
     // events.onConnect([](AsyncEventSourceClient *client)
     //                  {
