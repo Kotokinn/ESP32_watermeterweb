@@ -658,7 +658,7 @@ void setup()
         0           // Core 0
     );
 
-    if()
+    if(FLAS)
     
 }
 // func
