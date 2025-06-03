@@ -658,7 +658,7 @@ void setup()
         saveToFile(jsonString);
 
         Serial.println("Received and Saved JSON: " + jsonString);
-        request->send(200, "text/html","i was here"); });
+ });
 
     events.onConnect([](AsyncEventSourceClient *client)
                      {
