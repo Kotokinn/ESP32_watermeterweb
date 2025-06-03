@@ -409,9 +409,7 @@ const char html_page[] PROGMEM = R"rawliteral(
         <form class="tab-form">
             <div id="status-output">
                 <p id="net-status">đăng kí mạng....%CHECK_SIM%</p>
-                <p id="serial-status">kết nối serial....</p>
-                <p id="image-status">kiểm tra gửi ảnh....</p>
-                <p id="disconnect-status">Connected.</p>
+                
             </div>
             <div class="misterious-space"></div>
             <div class="btn-check">Disconnect web</div>
