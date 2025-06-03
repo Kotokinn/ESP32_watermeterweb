@@ -720,6 +720,7 @@ void loop()
 
 void Send_status_task(void *pvParameters)
 {
+    unsigned long now = millis();
     for (;;)
     {
         if (now - lastSend > 1000)
