@@ -1,1 +1,92 @@
  TachMessage(response);
+
+ void TachMessage(char response[])
+{
+    char number[5] = {0};
+    char text[100] = {0};
+    int i = 0, j = 0;
+
+    // char response[] = "HTTP/1.1 200 \r\n"
+    //                   "Vary: Origin\r\n"
+    //                   "Vary: Access-Control-Request-Method\r\n"
+    //                   "Vary: Access-Control-Request-Headers\r\n"
+    //                   "Content-Type: text/plain;charset=UTF-8\r\n"
+    //                   "Content-Length: 39\r\n"
+    //                   "Date: Tue, 03 Jun 2025 04:11:45 GMT\r\n"
+    //                   "\r\n"
+    //                   "1 upload success \r\n"
+    //                   "25/06/03,12:11:44\r\n"
+    //                   "OK\r\n";
+
+    // Tìm phần body
+    char *body = strstr(response, "\r\n\r\n");
+    if (body != NULL)
+    {
+        body += 4; // bỏ qua "\r\n\r\n"
+        // printf("Body:\n%s\n", body);
+    }
+    else
+    {
+        printf("Không tìm thấy phần body\n");
+    }
+
+    char line1[30] = {0}; // 1 upload success
+    char line2[20] = {0}; // 25/06/03,12:11:44
+    // end_res // OK
+
+    char *token = strtok(body, "\r\n");
+    int lineCount = 0;
+
+    while (token != NULL && lineCount < 3)
+    {
+        switch (lineCount)
+        {
+        case 0: // line 1
+            strncpy(line1, token, sizeof(line1) - 1);
+            while (line1[i] && isdigit(line1[i]))
+            {
+                status[j++] = line1[i++];
+            }
+            status[j] = '\0';
+            // Bỏ qua khoảng trắng
+            while (line1[i] && isspace(line1[i]))
+            {
+                i++;
+            }
+            strncpy(message, &line1[i], sizeof(message) - 1);
+            message[sizeof(message) - 1] = 0;
+            break;
+        case 1:
+            strncpy(line2, token, sizeof(line2) - 1);
+            sscanf(line2, "%d/%d/%d,%d:%d:%d", &year, &month, &day, &hour, &minute, &second);
+            break;
+        case 2:
+            strncpy(end_res, token, sizeof(end_res) - 1);
+            break;
+        default:
+            Serial.printf("unknow incumin data");
+            break;
+        }
+        lineCount++;
+        token = strtok(NULL, "\r\n");
+    }
+
+    // Serial.print(status);
+    // Serial.print("\n");
+    // Serial.print(message);
+    // Serial.print("\n");
+    // Serial.print(year);
+    // Serial.print("\n");
+    // Serial.print(month);
+    // Serial.print("\n");
+    // Serial.print(day);
+    // Serial.print("\n");
+    // Serial.print(hour);
+    // Serial.print("\n");
+    // Serial.print(minute);
+    // Serial.print("\n");
+    // Serial.print(second);
+    // Serial.print("\n");
+    // Serial.print(end_res);
+    // Serial.print("\n");
+}
