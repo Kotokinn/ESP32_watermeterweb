@@ -703,7 +703,7 @@ void setup()
     );
     xTaskCreatePinnedToCore(
         Send_status_task,   // Hàm loop chạy trên Core 0
-        "Web_task", // Tên task
+        "Send_status_task", // Tên task
         4096,       // Stack size
         NULL,       // Tham số
         1,          // Priority
