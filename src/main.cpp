@@ -437,7 +437,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 console.log("heartbeat", e.data);
             }, false);
         }
-            
+
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
@@ -658,6 +658,13 @@ void setup()
 
         Serial.println("Received and Saved JSON: " + jsonString);
         request->send(200, "text/html","i was here"); });
+
+    events.onConnect([](AsyncEventSourceClient *client)
+                     {
+    if (client->lastId()) {
+      Serial.printf("SSE Client reconnected! Last message ID that it gat is: %" PRIu32 "\n", client->lastId());
+    }
+    client->send("hello!", NULL, millis(), 1000); });
 
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
               { Serial.printf("Disconneting server");
