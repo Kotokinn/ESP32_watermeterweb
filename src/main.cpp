@@ -594,7 +594,6 @@ void setup()
 
                   request->send(200, "text/html; charset=utf-8", page); });
 
-                  if(FLAG)
 
     server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
               {
