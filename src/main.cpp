@@ -662,6 +662,7 @@ void setup()
     );
     if (FLAGE_RUN_CHECK == 1)
     {
+        Serial.print("Send");
         xTaskCreatePinnedToCore(
             Send_status_task,   // Hàm loop chạy trên Core 0
             "Send_status_task", // Tên task
