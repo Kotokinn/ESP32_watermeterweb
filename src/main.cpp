@@ -422,7 +422,6 @@ const char html_page[] PROGMEM = R"rawliteral(
         // source.onmessage = function(event) {
         //     document.getElementById('status-check').innerHTML += event.data + '<br>';
         // };
-
          source.addEventListener('time', function(e) {
             document.getElementById('status-check').innerHTML += event.data + '<br>';
         }, false);
