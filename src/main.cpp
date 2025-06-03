@@ -618,6 +618,8 @@ void setup()
         serializeJson(doc, jsonString);
         saveToFile(jsonString);
 
+        FLAGE_RUN_CHECK =1;
+
         Serial.println("Received and Saved JSON: " + jsonString);
         String referer = request->header("Referer");
         if (referer.length() == 0) {
