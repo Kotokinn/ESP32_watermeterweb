@@ -708,7 +708,7 @@ void Send_status_task(void *pvParameters)
         unsigned long now = millis(); // Move this inside the loop to get updated time
         if (now - lastSend > 5000)
         { // send every 1 second
-            String message = "Checkin sim... "  " seconds";
+            String message = "Checkin sim...  seconds";
             events.send(message.c_str(), "time", now);
             lastSend = now;
         }
