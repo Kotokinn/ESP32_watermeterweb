@@ -657,8 +657,7 @@ void setup()
         serializeJson(doc, jsonString);
         saveToFile(jsonString);
 
-        Serial.println("Received and Saved JSON: " + jsonString);
- });
+        Serial.println("Received and Saved JSON: " + jsonString); });
 
     events.onConnect([](AsyncEventSourceClient *client)
                      {
