@@ -419,7 +419,9 @@ const char html_page[] PROGMEM = R"rawliteral(
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    
+
+        let ws = new WebSocket(`ws://${window.location.hostname}/ws`);
+
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
