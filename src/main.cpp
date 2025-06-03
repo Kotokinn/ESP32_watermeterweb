@@ -666,13 +666,6 @@ void setup()
         // Send redirect response to the client
         request->redirect(referer); });
 
-    events.onConnect([](AsyncEventSourceClient *client)
-                     {
-    if (client->lastId()) {
-      Serial.printf("SSE Client reconnected! Last message ID that it gat is: %" PRIu32 "\n", client->lastId());
-    }
-    client->send("hello!", NULL, millis(), 1000); });
-
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
               { Serial.printf("Disconneting server");
                 server.reset();
