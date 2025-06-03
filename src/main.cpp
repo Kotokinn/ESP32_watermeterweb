@@ -9,8 +9,6 @@
 
 #define CONFIGURATION_FILE "/config.json"
 
-
-
 const char *ssid = "ESP32_AP";
 AsyncWebServer server(80);
 DNSServer dnsServer;
@@ -681,11 +679,8 @@ void setup()
                       "1 upload success \r\n"
                       "25/06/03,12:11:44\r\n"
                       "OK\r\n";
-
-   
 }
 // func
-
 
 void loop()
 {
