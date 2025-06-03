@@ -717,7 +717,7 @@ void Send_status_task(void *pvParameters)
             events.send(message.c_str(), "time", now);
             lastSend = now;
         }
-        vTaskDelay(20 / portTICK_PERIOD_MS); // small delay to yield CPU
+        vTaskDelay(20 / portTICK_PERIOD_MS);
     }
 }
 
