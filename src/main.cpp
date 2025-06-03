@@ -668,17 +668,7 @@ void setup()
         NULL,       // Task handle
         0           // Core 0
     );
-    char response[] = "HTTP/1.1 200 \r\n"
-                      "Vary: Origin\r\n"
-                      "Vary: Access-Control-Request-Method\r\n"
-                      "Vary: Access-Control-Request-Headers\r\n"
-                      "Content-Type: text/plain;charset=UTF-8\r\n"
-                      "Content-Length: 39\r\n"
-                      "Date: Tue, 03 Jun 2025 04:11:45 GMT\r\n"
-                      "\r\n"
-                      "1 upload success \r\n"
-                      "25/06/03,12:11:44\r\n"
-                      "OK\r\n";
+   
 }
 // func
 
@@ -689,7 +679,7 @@ void loop()
 
 void Web_task(void *pvParameters)
 {
-    
+
     for (;;)
     {
         dnsServer.processNextRequest();
