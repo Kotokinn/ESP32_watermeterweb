@@ -430,13 +430,7 @@ const char html_page[] PROGMEM = R"rawliteral(
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
             document.getElementById('disconnect-status').textContent = "Disconnected";
-                // .then(res => res.json())
-                // .then(data => {
-                    // Update each status line
-                // })
-                // .catch(err => {
-                    // console.error('ESP request failed:', err);
-                // });
+               
         });
 
         // button tab
