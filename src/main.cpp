@@ -420,12 +420,23 @@ const char html_page[] PROGMEM = R"rawliteral(
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-        let ws = new WebSocket(`ws://${window.location.hostname}/ws`);
-        ws.onmessage = function(event) {
-            console.log('Received:', event.data);
-            document.getElementById('net-status').innerText = event.data;
-        };
-
+        if (!!window.EventSource) {
+      var source = new EventSource('/events');
+      source.addEventListener('open', function(e) {
+        console.log("Events Connected");
+      }, false);
+      source.addEventListener('error', function(e) {
+        if (e.target.readyState != EventSource.OPEN) {
+          console.log("Events Disconnected");
+        }
+      }, false);
+      source.addEventListener('message', function(e) {
+        console.log("message", e);
+      }, false);
+      source.addEventListener('heartbeat', function(e) {
+        console.log("heartbeat", e.data);
+      }, false);
+    }
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
             fetch('/disconnect')
