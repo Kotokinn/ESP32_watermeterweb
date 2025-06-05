@@ -8,9 +8,11 @@
 #include <freertos/semphr.h>
 
 #define CONFIGURATION_FILE "/config.json"
-int FLAGE_RUN_CHECK = 0;
 
 const char *ssid = "ESP32_AP";
+
+bool shouldDisconnect = false;
+
 AsyncWebServer server(80);
 AsyncEventSource events("/events");
 DNSServer dnsServer;
@@ -337,8 +339,28 @@ const char html_page[] PROGMEM = R"rawliteral(
             display: flex;
             justify-content: center;
         }
+
         .misterious-space {
-            height: 45vh;
+            height: 5vh;
+        }
+
+        #status-output {
+            height: 50vh;
+            overflow: auto;
+        }
+            
+        button[type="submit"] {
+            background-color: #4CAF50;
+            /* Green */
+            color: white;
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+
         }
     </style>
 </head>
@@ -348,10 +370,10 @@ const char html_page[] PROGMEM = R"rawliteral(
         <h2 class="title">Đồng hồ nước</h2>
         <div class="tab">
             <button class="tab-button active">Setting config</button>
-            <button class="tab-button">Get status</button>
+            <button class="tab-button" id="get_status">Get status</button>
         </div>
 
-        <form class="tab-form form-active" action="/data" method="post">
+        <form class="tab-form form-active" action="/" method="post">
             <h3>Cấu hình server</h3>
             <div class="Container">
                 <div class="BoxInput"><span>Hostname</span><input required value="%HOSTNAME%" name="hostname"
@@ -364,8 +386,8 @@ const char html_page[] PROGMEM = R"rawliteral(
                 <div class="BoxInput">
                     <span>Chu kì ảnh tải lên:</span>
                     <div class="ContainerBoxInput">
-                        <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" value="%CHUKI%" type="text"
-                            placeholder="0">
+                        <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" value="%CHUKI%"
+                            type="text" placeholder="0">
                         <select style="height: 96%;" name="donvichuki" id="">
                             <option value="86400">Ngày</option>
                         </select>
@@ -411,21 +433,31 @@ const char html_page[] PROGMEM = R"rawliteral(
             <div id="status-output">
                 <p id="status-check"></p>
             </div>
-            <div class="misterious-space"></div>
+            <div class="misterious-space">
+                <p id="disconnect-status"></p>
+            </div>
             <div class="btn-check">Disconnect web</div>
         </form>
     </div>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        let eventSourceConnected = false;
+        const get_status = document.querySelector('#get_status');
+        get_status.addEventListener('click', () => {
+            if (eventSourceConnected) return; // Prevent multiple connections
 
-        var source = new EventSource('/events');
-        source.onmessage = function(event) {
-            document.getElementById('status-check').innerHTML += event.data + '<br>';
-        };
-         source.addEventListener('status', function(e) {
-            document.getElementById('status-check').innerHTML += event.data + '<br>';
-        }, false);
+            const source = new EventSource('/events');
+            eventSourceConnected = true; // Set flag to prevent reconnection
+
+            source.onmessage = function (event) {
+                document.getElementById('status-check').innerHTML += event.data + '<br>';
+            };
+
+            source.addEventListener('status', function (e) {
+                document.getElementById('status-check').innerHTML += e.data + '<br>';
+            }, false);
+        });
 
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
@@ -529,20 +561,6 @@ const char html_page[] PROGMEM = R"rawliteral(
         // Initialize correct state on load
         handleOnChangeSelect();
 
-        checkValueToDefault(hostname, "14.224.158.56");
-        checkValueToDefault(path, "some/path");
-        checkValueToDefault(port, "8080");
-        checkValueToDefault(chuki, "2");
-        checkValueToDefault(donvi_chuki, "60");
-        checkValueToDefault(dosang, "6");
-        checkValueToDefault(top, "6");
-        checkValueToDefault(left, "6");
-        checkValueToDefault(right, "6");
-        checkValueToDefault(bottom, "6");
-        checkValueToDefault(tenKH, "6");
-        checkValueToDefault(SDB, "6");
-        checkValueToDefault(PDN, "6");
-
         // Add event listener (this ensures it works dynamically)
         optionValue.addEventListener("change", handleOnChangeSelect);
     });
@@ -562,94 +580,6 @@ void Send_status_task(void *pvParameters);
 void setup()
 {
     Serial.begin(115200);
-    WiFi.softAP(ssid);
-    loadFromFile(model);
-    Serial.println("Access Point Started");
-    dnsServer.start(53, "*", WiFi.softAPIP());
-
-    server.onNotFound([](AsyncWebServerRequest *request)
-                      { request->redirect("/"); });
-
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-              {
-                  String page = FPSTR(html_page);
-                  page.replace("%HOSTNAME%", model.getHostname());
-                  page.replace("%PATH%", model.getPath());
-                  page.replace("%PORT%", model.getPort());
-                  page.replace("%CHUKI%", model.getChuki());
-                  page.replace("%DOSANG%", model.getDoSang());
-                  page.replace("%TOP%", model.getTop());
-                  page.replace("%LEFT%", model.getLeft());
-                  page.replace("%RIGHT%", model.getRight());
-                  page.replace("%BOTTOM%", model.getBott());
-                  page.replace("%TENKH%", model.getTenKH());
-                  page.replace("%SDB%", model.getSDB());
-                  page.replace("%IDDEVICE%", model.getIDDevice());
-                  page.replace("%PDN%", model.getPDN());
-
-                  // status checking
-                  page.replace("%SIM%", "OK");
-                  page.replace("%SERIAL%", "OK");
-                  page.replace("%IMAGE%", "NO OK");
-
-                  request->send(200, "text/html; charset=utf-8", page); });
-
-    server.on("/data", HTTP_POST, [](AsyncWebServerRequest *request)
-              {
-        StaticJsonDocument<512> doc;
-
-        // Serial.printf(model.getHostname());
-
-        if (request->hasParam("tenKH", true)) CheckValueExist(doc,request->getParam("tenKH", true)->value(),"tenKH");
-        if (request->hasParam("path", true)) CheckValueExist(doc,request->getParam("path", true)->value(),"path");
-        if (request->hasParam("port", true)) CheckValueExist(doc,request->getParam("port", true)->value(),"port");
-        if (request->hasParam("chuki", true)) CheckValueExist(doc,request->getParam("chuki", true)->value(),"chuki");
-        if (request->hasParam("dosang", true)) CheckValueExist(doc,request->getParam("dosang", true)->value(),"dosang");
-        if (request->hasParam("cropTop", true)) CheckValueExist(doc,request->getParam("cropTop", true)->value(),"top");
-        if (request->hasParam("idDevice", true)) CheckValueExist(doc,request->getParam("idDevice", true)->value(),"idDevice");
-        if (request->hasParam("cropLeft", true)) CheckValueExist(doc,request->getParam("cropLeft", true)->value(),"left");
-        if (request->hasParam("hostname", true)) CheckValueExist(doc,request->getParam("hostname", true)->value(),"hostname");
-        if (request->hasParam("cropRight", true)) CheckValueExist(doc,request->getParam("cropRight", true)->value(),"right");
-        if (request->hasParam("cropBottom", true)) CheckValueExist(doc,request->getParam("cropBottom", true)->value(),"bottom");
-        if (request->hasParam("SDB", true)) CheckValueExist(doc,request->getParam("SDB", true)->value(),"SDB");
-        if (request->hasParam("PDN", true)) CheckValueExist(doc,request->getParam("PDN", true)->value(),"PDN");
-
-        String jsonString;
-        serializeJson(doc, jsonString);
-        saveToFile(jsonString);
-
-        FLAGE_RUN_CHECK = 1;
-
-        Serial.println("Received and Saved JSON: " + jsonString);
-        String referer = request->header("Referer");
-        if (referer.length() == 0) {
-            referer = "/"; // fallback redirect URL if no Referer header present
-        }
-
-        // Send redirect response to the client
-        request->redirect(referer); });
-
-    server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
-              {
-                  Serial.printf("Disconneting server");
-                  FLAGE_RUN_CHECK = 0;
-                  server.reset();
-                  WiFi.disconnect(true);
-                  server.end(); });
-
-    // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
-    //           {
-    // StaticJsonDocument<256> doc;
-    // doc["net"] = "OK";
-    // doc["serial"] = "Connected";
-    // doc["image"] = "Sent";
-    // doc["disconnect"] = "10s";
-    // String response;
-    // serializeJson(doc, response);
-    // request->send(200, "application/json", response); });
-
-    server.addHandler(&events);
-    server.begin();
 
     xTaskCreatePinnedToCore(
         Web_task,   // Hàm loop chạy trên Core 0
@@ -690,18 +620,15 @@ void Send_status_task(void *pvParameters)
     size_t messageIndex = 0;
     for (;;)
     {
-        if (FLAGE_RUN_CHECK == 1)
+        unsigned long now = millis();
+        if (now - lastSend > 5000) // Send every 5 seconds
         {
-            unsigned long now = millis();
-            if (now - lastSend > 5000) // Send every 5 seconds
-            {
-                String message = messages[messageIndex];
-                events.send(message.c_str(), "status", now);
-                lastSend = now;
+            String message = messages[messageIndex];
+            events.send(message.c_str(), "status", now);
+            lastSend = now;
 
-                messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
-                vTaskDelay(20 / portTICK_PERIOD_MS);
-            }
+            messageIndex = (messageIndex + 1) % numMessages; // Rotate to next message
+            vTaskDelay(20 / portTICK_PERIOD_MS);
         }
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
@@ -709,9 +636,102 @@ void Send_status_task(void *pvParameters)
 
 void Web_task(void *pvParameters)
 {
+    WiFi.softAP(ssid);
+    Serial.println("Access Point Started");
+    dnsServer.start(53, "*", WiFi.softAPIP());
 
+    server.onNotFound([](AsyncWebServerRequest *request)
+                      { request->redirect("/"); });
+
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+              {
+                  loadFromFile(model); // bo vao day de reload web moi thay config moi nhat
+                  String page = FPSTR(html_page);
+                  page.replace("%HOSTNAME%", model.getHostname());
+                  page.replace("%PATH%", model.getPath());
+                  page.replace("%PORT%", model.getPort());
+                  page.replace("%CHUKI%", model.getChuki());
+                  page.replace("%DOSANG%", model.getDoSang());
+                  page.replace("%TOP%", model.getTop());
+                  page.replace("%LEFT%", model.getLeft());
+                  page.replace("%RIGHT%", model.getRight());
+                  page.replace("%BOTTOM%", model.getBott());
+                  page.replace("%TENKH%", model.getTenKH());
+                  page.replace("%SDB%", model.getSDB());
+                  page.replace("%IDDEVICE%", model.getIDDevice());
+                  page.replace("%PDN%", model.getPDN());
+
+                  // status checking
+                  page.replace("%SIM%", "OK");
+                  page.replace("%SERIAL%", "OK");
+                  page.replace("%IMAGE%", "NO OK");
+
+                  request->send(200, "text/html; charset=utf-8", page); });
+
+    server.on("/", HTTP_POST, [](AsyncWebServerRequest *request)
+              {
+        StaticJsonDocument<512> doc;
+
+        // Serial.printf(model.getHostname());
+
+        if (request->hasParam("tenKH", true)) CheckValueExist(doc,request->getParam("tenKH", true)->value(),"tenKH");
+        if (request->hasParam("path", true)) CheckValueExist(doc,request->getParam("path", true)->value(),"path");
+        if (request->hasParam("port", true)) CheckValueExist(doc,request->getParam("port", true)->value(),"port");
+        if (request->hasParam("chuki", true)) CheckValueExist(doc,request->getParam("chuki", true)->value(),"chuki");
+        if (request->hasParam("dosang", true)) CheckValueExist(doc,request->getParam("dosang", true)->value(),"dosang");
+        if (request->hasParam("cropTop", true)) CheckValueExist(doc,request->getParam("cropTop", true)->value(),"top");
+        if (request->hasParam("idDevice", true)) CheckValueExist(doc,request->getParam("idDevice", true)->value(),"idDevice");
+        if (request->hasParam("cropLeft", true)) CheckValueExist(doc,request->getParam("cropLeft", true)->value(),"left");
+        if (request->hasParam("hostname", true)) CheckValueExist(doc,request->getParam("hostname", true)->value(),"hostname");
+        if (request->hasParam("cropRight", true)) CheckValueExist(doc,request->getParam("cropRight", true)->value(),"right");
+        if (request->hasParam("cropBottom", true)) CheckValueExist(doc,request->getParam("cropBottom", true)->value(),"bottom");
+        if (request->hasParam("SDB", true)) CheckValueExist(doc,request->getParam("SDB", true)->value(),"SDB");
+        if (request->hasParam("PDN", true)) CheckValueExist(doc,request->getParam("PDN", true)->value(),"PDN");
+
+        String jsonString;
+        serializeJson(doc, jsonString);
+        saveToFile(jsonString);
+
+        Serial.println("Received and Saved JSON: " + jsonString);
+        String referer = request->header("Referer");
+        if (referer.length() == 0) {
+            referer = "/"; // fallback redirect URL if no Referer header present
+        }
+
+        // Send redirect response to the client
+        request->redirect(referer); });
+
+    server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
+              {
+    Serial.println("Disconnect request received");
+    shouldDisconnect = true; });
+
+    // server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
+    //           {
+    // StaticJsonDocument<256> doc;
+    // doc["net"] = "OK";
+    // doc["serial"] = "Connected";
+    // doc["image"] = "Sent";
+    // doc["disconnect"] = "10s";
+    // String response;
+    // serializeJson(doc, response);
+    // request->send(200, "application/json", response); });
+
+    server.addHandler(&events);
+    server.begin();
     for (;;)
     {
+        if (shouldDisconnect)
+        {
+            Serial.println("Disconnecting WiFi and stopping server safely...");
+            events.close(); // Stop SSE
+            server.end();   // Stop AsyncWebServer
+            vTaskDelay(100 / portTICK_PERIOD_MS);
+
+            dnsServer.stop();            // Stop mDNS or custom DNS server
+            WiFi.softAPdisconnect(true); // Stop softAP and clear config
+            vTaskDelay(100 / portTICK_PERIOD_MS);
+        }
         dnsServer.processNextRequest();
         vTaskDelay(10 / portTICK_PERIOD_MS); // delay nhỏ
     }

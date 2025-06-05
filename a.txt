@@ -1,4 +1,6 @@
- char status[5];
+- lỗi reset esp khi tắt wifi và server web
+
+char status[5];
 char message[30];
 int year, month, day, hour, minute, second;
 char end_res[5];
