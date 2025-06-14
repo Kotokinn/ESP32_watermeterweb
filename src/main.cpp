@@ -9,7 +9,7 @@
 
 #define CONFIGURATION_FILE "/config.json"
 
-const char *ssid = "ESP32_AP";
+const char *ssid = "ESP32_APP";
 
 bool shouldDisconnect = false;
 
@@ -349,7 +349,7 @@ const char html_page[] PROGMEM = R"rawliteral(
             overflow: auto;
         }
             
-        button[type="submit"] {
+        #test {
             background-color: #4CAF50;
             /* Green */
             color: white;
@@ -388,8 +388,9 @@ const char html_page[] PROGMEM = R"rawliteral(
                     <div class="ContainerBoxInput">
                         <input required style="width: 62%; height: 80%;" class="inputItem" name="chuki" value="%CHUKI%"
                             type="text" placeholder="0">
-                        <select style="height: 96%;" name="donvichuki" id="">
-                            <option value="86400">Ngày</option>
+                        <select style="height: 96%;" name="donvichuki" >
+                            <option  value="86400">Ngày</option>
+                            <option value="30">Giowf</option>
                         </select>
                     </div>
                 </div>
@@ -426,7 +427,7 @@ const char html_page[] PROGMEM = R"rawliteral(
                 <div class="BoxInput"><span>Tên PDN: </span><input required value="%PDN%" name="PDN" type="text"
                         placeholder="vd: toi la UwU"></div>
             </div>
-            <button type="submit">Submit</button>
+            <button id="test" type="submit">Submit</button>
         </form>
 
         <form class="tab-form">
@@ -441,23 +442,25 @@ const char html_page[] PROGMEM = R"rawliteral(
     </div>
 </body>
 <script>
+
+
     document.addEventListener("DOMContentLoaded", function () {
-        let eventSourceConnected = false;
+        // let eventSourceConnected = false;
         const get_status = document.querySelector('#get_status');
-        get_status.addEventListener('click', () => {
-            if (eventSourceConnected) return; // Prevent multiple connections
+        // get_status.addEventListener('click', () => {
+            // if (eventSourceConnected) return; // Prevent multiple connections
 
             const source = new EventSource('/events');
             eventSourceConnected = true; // Set flag to prevent reconnection
-
-            source.onmessage = function (event) {
-                document.getElementById('status-check').innerHTML += event.data + '<br>';
-            };
-
             source.addEventListener('status', function (e) {
                 document.getElementById('status-check').innerHTML += e.data + '<br>';
-            }, false);
-        });
+            });
+
+            // source.onmessage = function (event) {
+            //     document.getElementById('status-check').innerHTML += event.data + '<br>';
+            // };
+
+        // });
 
         const btn_disconnect = document.querySelector('.btn-check');
         btn_disconnect.addEventListener('click', () => {
@@ -486,7 +489,7 @@ const char html_page[] PROGMEM = R"rawliteral(
         const path = document.querySelector('input[name="path"]');
         const port = document.querySelector('input[name="port"]');
         const chuki = document.querySelector('input[name="chuki"]');
-        const donvi_chuki = document.querySelector('input[name="donvichuki"]');
+        const donvi_chuki = document.querySelector('select[name="donvichuki"]');
         const dosang = document.querySelector('input[name="dosang"]');
 
         const top = document.querySelector('input[name="cropTop"]');
@@ -503,15 +506,13 @@ const char html_page[] PROGMEM = R"rawliteral(
             return component.value != null ? component.value : defaultValue;
         }
 
-        function sendData(event) {
-            event.preventDefault(); // Prevent default form submission
 
-            // Collect form data
-            let formData = {
+        test.addEventListener('click', () => {
+            const formData = {
                 hostname: hostname.value,
                 path: path.value,
                 port: port.value,
-                chuki: chuki.value * donvi_chuki.value,
+                chuki: Number(chuki.value) * Number(donvi_chuki.value),
                 dosang: dosang.value,
                 cropTop: top.value,
                 cropLeft: left.value,
@@ -521,13 +522,41 @@ const char html_page[] PROGMEM = R"rawliteral(
                 SDB: SDB.value,
                 PDN: PDN.value
             };
+            console.log(formData);
 
             fetch("/data", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            })
-        }
+                 method: "POST",
+                 headers: { "Content-Type": "application/json" },
+                 body: JSON.stringify(formData)
+             })
+        })
+
+
+        // function sendData(event) {
+        //     event.preventDefault(); // Prevent default form submission
+
+        //     // Collect form data
+        //     const formData = {
+        //         hostname: hostname.value,
+        //         path: path.value,
+        //         port: port.value,
+        //         chuki: Number(chuki.value) * Number(donvi_chuki.value),
+        //         dosang: dosang.value,
+        //         cropTop: top.value,
+        //         cropLeft: left.value,
+        //         cropRight: right.value,
+        //         cropBott: bottom.value,
+        //         tenKH: tenKH.value,
+        //         SDB: SDB.value,
+        //         PDN: PDN.value
+        //     };
+
+        //     fetch("/data", {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify(formData)
+        //     })
+        // }
 
         function handleOnChangeSelect() {
             // console.log("Dropdown changed:", optionValue.value); // Debugging output
@@ -576,7 +605,7 @@ void CheckValueExist(JsonDocument &doc, const String &input, const char *keyName
 // declare void
 void Web_task(void *pvParameters);
 void Send_status_task(void *pvParameters);
-
+void Send_status_task2(void *pvParameters);
 void setup()
 {
     Serial.begin(115200);
@@ -590,14 +619,15 @@ void setup()
         NULL,       // Task handle
         0           // Core 0
     );
+
     xTaskCreatePinnedToCore(
-        Send_status_task,   // Hàm loop chạy trên Core 0
-        "Send_status_task", // Tên task
-        4096,               // Stack size
-        NULL,               // Tham số
-        1,                  // Priority
-        NULL,               // Task handle
-        0                   // Core 0
+        Send_status_task2,   // Hàm loop chạy trên Core 0
+        "Send_status_task2", // Tên task
+        4096,                // Stack size
+        NULL,                // Tham số
+        1,                   // Priority
+        NULL,                // Task handle
+        0                    // Core 0
     );
 }
 // func
@@ -611,17 +641,47 @@ unsigned long lastSend = 0;
 void Send_status_task(void *pvParameters)
 {
     const char *messages[] = {
-        "Checkin SIM... ok",
         "Checkin server... ok",
+        "Checkin SIM... ok",
         "Checkin send image... ok",
         "Checkin device... failed",
+    };
+    const size_t numMessages = sizeof(messages) / sizeof(messages[0]);
+    size_t messageIndex = 0;
+
+    unsigned long lastSend = 0; // Ensure sending starts immediately
+
+    for (;;)
+    {
+        unsigned long now = millis();
+        if (now - lastSend > 2000)
+        {
+            String message = messages[messageIndex];
+            Serial.println(message);
+            events.send(message.c_str(), "status", now);
+            lastSend = now;
+
+            messageIndex = (messageIndex + 1) % numMessages;
+            vTaskDelay(20 / portTICK_PERIOD_MS);
+        }
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+}
+
+void Send_status_task2(void *pvParameters)
+{
+    const char *messages[] = {
+        "Checkin s... ok",
+        "Checkin d... ok",
+        "Checkin f image... ok",
+        "Checkin g... failed",
     };
     const size_t numMessages = sizeof(messages) / sizeof(messages[0]);
     size_t messageIndex = 0;
     for (;;)
     {
         unsigned long now = millis();
-        if (now - lastSend > 5000) // Send every 5 seconds
+        if (now - lastSend > 2000) // Send every 5 seconds
         {
             String message = messages[messageIndex];
             events.send(message.c_str(), "status", now);
@@ -678,6 +738,7 @@ void Web_task(void *pvParameters)
         if (request->hasParam("path", true)) CheckValueExist(doc,request->getParam("path", true)->value(),"path");
         if (request->hasParam("port", true)) CheckValueExist(doc,request->getParam("port", true)->value(),"port");
         if (request->hasParam("chuki", true)) CheckValueExist(doc,request->getParam("chuki", true)->value(),"chuki");
+        if (request->hasParam("donvichuki", true)) CheckValueExist(doc,request->getParam("donvichuki", true)->value(),"donvichuki");
         if (request->hasParam("dosang", true)) CheckValueExist(doc,request->getParam("dosang", true)->value(),"dosang");
         if (request->hasParam("cropTop", true)) CheckValueExist(doc,request->getParam("cropTop", true)->value(),"top");
         if (request->hasParam("idDevice", true)) CheckValueExist(doc,request->getParam("idDevice", true)->value(),"idDevice");
@@ -689,17 +750,47 @@ void Web_task(void *pvParameters)
         if (request->hasParam("PDN", true)) CheckValueExist(doc,request->getParam("PDN", true)->value(),"PDN");
 
         String jsonString;
-        serializeJson(doc, jsonString);
-        saveToFile(jsonString);
 
+        serializeJson(doc, jsonString);
+
+        DeserializationError error = deserializeJson(doc, jsonString);
+
+        if (!error) {
+        int chuki = atoi(doc["chuki"]);
+        int donvi = atoi(doc["donvichuki"]);
+
+        // Gán lại giá trị đã nhân
+        doc["chuki"] = chuki * donvi;
+
+        // Ghi lại vào jsonString
+        jsonString = ""; // clear nội dung cũ trước khi serialize lại
+        serializeJson(doc, jsonString);
         Serial.println("Received and Saved JSON: " + jsonString);
+
+        saveToFile(jsonString);
+        } else {
+        Serial.println("Lỗi đọc JSON");
+        }
+
+
+
         String referer = request->header("Referer");
         if (referer.length() == 0) {
             referer = "/"; // fallback redirect URL if no Referer header present
         }
 
         // Send redirect response to the client
-        request->redirect(referer); });
+        request->redirect(referer); 
+    
+        xTaskCreatePinnedToCore(
+            Send_status_task,   // Hàm loop chạy trên Core 0
+            "Send_status_task", // Tên task
+            4096,               // Stack size
+            NULL,               // Tham số
+            1,                  // Priority
+            NULL,               // Task handle
+            0                   // Core 0
+        ); });
 
     server.on("/disconnect", HTTP_GET, [](AsyncWebServerRequest *request)
               {
